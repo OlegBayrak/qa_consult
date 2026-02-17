@@ -1,0 +1,76 @@
+---
+const skillCategories = [
+  {
+    title: 'Languages',
+    icon: '{ }',
+    skills: ['JavaScript', 'TypeScript', 'SQL', 'Bash', 'Solidity', 'Vyper'],
+  },
+  {
+    title: 'Testing',
+    icon: '&#10003;',
+    skills: ['Playwright', 'Cypress', 'Cucumber', 'Jest', 'Postman', 'Allure', 'Swagger'],
+  },
+  {
+    title: 'Performance',
+    icon: '&#9889;',
+    skills: ['K6', 'Prometheus', 'BetterStack', 'Grafana', 'Sentry'],
+  },
+  {
+    title: 'DevOps & CI/CD',
+    icon: '&#9881;',
+    skills: ['GitHub Actions', 'Docker', 'Jenkins', 'GitHub Workflows'],
+  },
+  {
+    title: 'Databases',
+    icon: '&#9744;',
+    skills: ['PostgreSQL', 'MySQL', 'Oracle DB'],
+  },
+  {
+    title: 'API & Tools',
+    icon: '&#8644;',
+    skills: ['REST', 'GraphQL', 'SwaggerHub', 'Mockoon'],
+  },
+  {
+    title: 'QA Management',
+    icon: '&#9776;',
+    skills: ['Jira', 'JQL', 'Notion', 'TestRail', 'OKRs', 'UAT'],
+  },
+  {
+    title: 'Blockchain QA',
+    icon: '&#9830;',
+    skills: ['Smart Contracts', 'MetaMask', 'WalletConnect', 'zkSync', 'Ethereum', 'TON'],
+  },
+];
+---
+
+<section id="skills" class="relative bg-surface/30">
+  <div class="section-container">
+    <div class="reveal">
+      <p class="section-subtitle">// skills & tools</p>
+      <h2 class="section-title">What I Work With</h2>
+      <p class="text-gray-400 mt-4 max-w-2xl">
+        A broad toolkit refined over 12+ years — from manual exploratory testing to
+        building full automation infrastructure.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-12 stagger-children">
+      {skillCategories.map((category) => (
+        <div class="glass-card p-5 hover:border-accent/20 transition-all duration-300 group hover:-translate-y-1">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-accent text-lg font-mono" set:html={category.icon} />
+            <h3 class="text-white font-semibold text-sm">{category.title}</h3>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            {category.skills.map((skill) => (
+              <span class="px-3 py-1 text-xs font-medium bg-white/5 text-gray-300 rounded-full
+                           group-hover:bg-accent/10 group-hover:text-accent-light transition-colors duration-300">
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

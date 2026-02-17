@@ -1,0 +1,160 @@
+---
+const jobs = [
+  {
+    company: 'Telemetry',
+    role: 'Test Infrastructure Engineer / SDET',
+    period: 'Aug 2025 — Present',
+    current: true,
+    highlights: [
+      'Designed scalable test infrastructure for backend and frontend systems',
+      'Built automated test frameworks from scratch — API, UI, and integration layers',
+      'Implemented AI-driven testing solutions for coverage optimization and failure analysis',
+      'Integrated automated suites into CI/CD pipelines with continuous quality gates',
+      'Established full QA release lifecycle from strategy to production readiness',
+    ],
+    tags: ['Playwright', 'TypeScript', 'AI Testing', 'CI/CD', 'Docker'],
+  },
+  {
+    company: 'TON',
+    role: 'QA Tech Lead',
+    period: 'Dec 2024 — Sep 2025',
+    highlights: [
+      'Created full QA roadmap, team structure, and test strategy across 4 projects',
+      'Designed scalable test frameworks using Playwright + TypeScript for Web3/SaaS',
+      'Integrated K6 load testing with CI/CD, alerts via BetterStack, dashboards in Grafana',
+      'Automated API flows and PostgreSQL services — reduced production issues by 40%',
+      'Mentored and scaled the QA team with metrics-driven culture',
+    ],
+    tags: ['Playwright', 'K6', 'Grafana', 'PostgreSQL', 'Web3'],
+  },
+  {
+    company: 'Entangle',
+    role: 'QA Tech Lead (Contract/Advisory)',
+    period: 'Sep 2024 — Dec 2025',
+    highlights: [
+      'Led QA for a blockchain gaming system and 8+ cross-functional projects',
+      'Set up QA strategy from zero during high-risk period with no processes in place',
+      'Coordinated across engineering, product, and DevOps for stable releases under pressure',
+    ],
+    tags: ['Blockchain', 'Strategy', 'Cross-team', 'Gaming'],
+  },
+  {
+    company: 'Matter Labs',
+    role: 'Sr. General QA (Automation + Manual)',
+    period: 'Nov 2022 — Sep 2024',
+    highlights: [
+      'Tested blockchain tech — Bridges, Portals, Nodes, CLI, Block Explorers',
+      'Built automation suites with JavaScript/TypeScript, Playwright, and Jest',
+      'Led new QA approaches with full documentation and tooling (Notion, Allure)',
+      'Conducted UAT across iOS, Android, and Desktop platforms',
+      'Integrated QA into CI/CD workflows with PostgreSQL and GitHub CI',
+    ],
+    tags: ['zkSync', 'Playwright', 'Jest', 'Allure', 'Blockchain'],
+  },
+  {
+    company: 'Motorik',
+    role: 'Sr. General QA (Automation + Manual)',
+    period: 'Nov 2021 — Nov 2022',
+    highlights: [
+      'QA for B2B automotive SaaS serving 3,000+ dealerships across 7 EU markets',
+      'Designed API testing frameworks (REST/SOAP) for vehicle catalog integrations',
+      'Reduced critical bug recurrence by 35% through support-driven bug triaging',
+      'Data integrity testing across PostgreSQL databases and marketplace systems',
+    ],
+    tags: ['REST', 'SOAP', 'PostgreSQL', 'Jira', 'B2B SaaS'],
+  },
+  {
+    company: 'Quickspin',
+    role: 'Sr. QA Integration Engineer',
+    period: 'Apr 2021 — Nov 2021',
+    highlights: [
+      'Functional and compliance testing of a gambling platform across multiple countries',
+      'API and database testing (SQL) for data integrity and backend logic',
+      'Implemented Cypress + Cucumber automated test scenarios for frontend regression',
+    ],
+    tags: ['Cypress', 'Cucumber', 'SQL', 'Compliance'],
+  },
+  {
+    company: 'Cloudbeds',
+    role: 'Sr. QA Engineer',
+    period: 'Oct 2019 — Apr 2021',
+    highlights: [
+      'QA for Web2 CRM system for hotel management (booking flows, customer ops)',
+      'Collaborated with Booking.com, Airbnb, and stakeholders across 5 countries',
+      'Full range of testing: Functional, Regression, Sanity, Smoke, Exploratory, Cross-browser',
+      'API testing with XML/JSON — White-box, Black-box, and Grey-box approaches',
+    ],
+    tags: ['TestRail', 'API', 'Cross-browser', 'Jira', 'Hospitality'],
+  },
+  {
+    company: 'Ubisoft',
+    role: 'Junior QA — Live QA Lead',
+    period: 'Nov 2017 — Oct 2019',
+    highlights: [
+      'Progressed from Junior QA to Live QA Lead through key compliance and testing initiatives',
+      'FTC compliance specialist — collaborated with Sony and Microsoft directly',
+      'Managed Live QA department operations and cross-team coordination',
+      'Tested AAA titles across PC, PlayStation, Xbox, and Nintendo Switch',
+      'Mentored junior engineers, conducted interviews, set OKRs and SMART goals',
+    ],
+    tags: ['AAA Gaming', 'Compliance', 'Team Lead', 'Jira', 'Cross-platform'],
+  },
+];
+---
+
+<section id="experience" class="relative">
+  <div class="section-container">
+    <div class="reveal">
+      <p class="section-subtitle">// work experience</p>
+      <h2 class="section-title">Where I've Worked</h2>
+    </div>
+
+    <div class="relative mt-12">
+      <!-- Timeline line -->
+      <div class="absolute left-0 md:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-accent via-accent/40 to-transparent"></div>
+
+      <div class="space-y-8">
+        {jobs.map((job, i) => (
+          <div class="relative pl-8 md:pl-20 reveal" style={`transition-delay: ${i * 80}ms;`}>
+            <!-- Timeline dot -->
+            <div class={`absolute left-0 md:left-8 top-2 w-3 h-3 rounded-full -translate-x-1.5 border-2
+              ${job.current ? 'bg-accent border-accent shadow-lg shadow-accent/50' : 'bg-surface border-accent/40'}`}>
+            </div>
+
+            <div class="glass-card p-6 hover:border-accent/20 transition-all duration-300 group">
+              <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
+                <div>
+                  <h3 class="text-white font-semibold text-lg group-hover:text-accent transition-colors">
+                    {job.role}
+                  </h3>
+                  <p class="text-accent font-mono text-sm">{job.company}</p>
+                </div>
+                <span class={`text-xs font-mono px-3 py-1 rounded-full whitespace-nowrap
+                  ${job.current ? 'bg-accent/20 text-accent' : 'bg-white/5 text-gray-400'}`}>
+                  {job.period}
+                </span>
+              </div>
+
+              <ul class="space-y-2 mb-4">
+                {job.highlights.map((item) => (
+                  <li class="text-gray-400 text-sm flex items-start gap-2">
+                    <span class="text-accent/60 mt-1 text-xs">&#9656;</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div class="flex flex-wrap gap-2">
+                {job.tags.map((tag) => (
+                  <span class="px-2 py-0.5 text-xs bg-accent/5 text-accent/70 rounded font-mono">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

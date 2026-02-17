@@ -1,0 +1,172 @@
+---
+import { leadership } from '../data/leadership';
+import { devops } from '../data/devops';
+import { automation } from '../data/automation';
+import { aiIntegrations } from '../data/ai-integrations';
+
+const categories = [
+  { id: 'leadership', label: 'QA Leadership', icon: '&#128101;', data: leadership },
+  { id: 'devops', label: 'DevOps & Infra', icon: '&#9881;', data: devops },
+  { id: 'automation', label: 'Automation QA', icon: '&#9889;', data: automation },
+  { id: 'ai', label: 'AI Integrations', icon: '&#10024;', data: aiIntegrations },
+];
+---
+
+<section id="portfolio" class="relative bg-surface/30">
+  <div class="section-container">
+    <div class="reveal">
+      <p class="section-subtitle">// portfolio</p>
+      <h2 class="section-title">Work Examples</h2>
+      <p class="text-gray-400 mt-4 max-w-2xl">
+        Real examples of how I approach quality engineering — from team leadership
+        to CI/CD pipelines to AI-powered workflows.
+      </p>
+    </div>
+
+    <!-- Category tabs -->
+    <div class="flex flex-wrap gap-2 mt-10 reveal" style="transition-delay: 100ms;" id="portfolio-tabs">
+      {categories.map((cat, i) => (
+        <button
+          data-tab={cat.id}
+          class:list={[
+            'tab-btn px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 flex items-center gap-2',
+            i === 0
+              ? 'bg-accent text-white shadow-lg shadow-accent/25'
+              : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white',
+          ]}
+        >
+          <span set:html={cat.icon} />
+          {cat.label}
+        </button>
+      ))}
+    </div>
+
+    <!-- Tab content panels -->
+    <div class="mt-8" id="portfolio-panels">
+      {categories.map((cat, catIdx) => (
+        <div
+          data-panel={cat.id}
+          class:list={['panel grid gap-5', catIdx === 0 ? '' : 'hidden']}
+        >
+          {cat.data.map((item, i) => (
+            <div class="portfolio-item glass-card overflow-hidden transition-all duration-300 hover:border-accent/20"
+                 style={`transition-delay: ${i * 60}ms;`}>
+              {/* Header — always visible */}
+              <button
+                class="portfolio-toggle w-full text-left p-5 flex items-start justify-between gap-4"
+                aria-expanded="false"
+              >
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-3 mb-2">
+                    <span class:list={[
+                      'px-2 py-0.5 text-xs font-mono rounded',
+                      item.type === 'code'
+                        ? 'bg-green-500/10 text-green-400'
+                        : 'bg-purple-500/10 text-purple-400',
+                    ]}>
+                      {item.type === 'code' ? '< />' : 'case study'}
+                    </span>
+                    <div class="flex flex-wrap gap-1.5">
+                      {item.tags.map((tag: string) => (
+                        <span class="px-2 py-0.5 text-xs bg-accent/5 text-accent/70 rounded font-mono">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <h3 class="text-white font-semibold">{item.title}</h3>
+                  <p class="text-gray-400 text-sm mt-1 line-clamp-2">{item.description}</p>
+                </div>
+                <svg class="toggle-icon w-5 h-5 text-gray-500 flex-shrink-0 mt-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {/* Expandable content */}
+              <div class="portfolio-content hidden">
+                <div class="px-5 pb-5 border-t border-white/5 pt-4">
+                  {item.type === 'code' && item.code && (
+                    <div class="relative">
+                      <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-mono text-gray-500">{item.filename}</span>
+                        <button class="copy-btn text-xs text-gray-500 hover:text-accent transition-colors font-mono px-2 py-1 rounded hover:bg-white/5">
+                          copy
+                        </button>
+                      </div>
+                      <pre class="bg-black/40 rounded-xl p-4 overflow-x-auto text-sm leading-relaxed border border-white/5"><code class="text-gray-300 font-mono" set:html={item.code} /></pre>
+                    </div>
+                  )}
+                  {item.type === 'case-study' && item.details && (
+                    <div class="space-y-4">
+                      {item.details.map((detail: { heading: string; content: string }) => (
+                        <div>
+                          <h4 class="text-accent text-sm font-semibold mb-1">{detail.heading}</h4>
+                          <p class="text-gray-400 text-sm leading-relaxed">{detail.content}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {item.impact && (
+                    <div class="mt-4 p-3 bg-accent/5 rounded-lg border border-accent/10">
+                      <p class="text-sm">
+                        <span class="text-accent font-semibold">Impact: </span>
+                        <span class="text-gray-300">{item.impact}</span>
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.tab-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const tabId = (btn as HTMLElement).dataset.tab!;
+
+      // Update tab styles
+      document.querySelectorAll('.tab-btn').forEach((b) => {
+        b.classList.remove('bg-accent', 'text-white', 'shadow-lg', 'shadow-accent/25');
+        b.classList.add('bg-white/5', 'text-gray-400');
+      });
+      btn.classList.remove('bg-white/5', 'text-gray-400');
+      btn.classList.add('bg-accent', 'text-white', 'shadow-lg', 'shadow-accent/25');
+
+      // Show/hide panels
+      document.querySelectorAll('.panel').forEach((p) => p.classList.add('hidden'));
+      document.querySelector(`[data-panel="${tabId}"]`)?.classList.remove('hidden');
+    });
+  });
+
+  // Accordion toggle
+  document.querySelectorAll('.portfolio-toggle').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.portfolio-item')!;
+      const content = item.querySelector('.portfolio-content')!;
+      const icon = item.querySelector('.toggle-icon')!;
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      content.classList.toggle('hidden');
+      icon.classList.toggle('rotate-180');
+    });
+  });
+
+  // Copy button
+  document.querySelectorAll('.copy-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const code = btn.closest('.relative')?.querySelector('code')?.textContent || '';
+      navigator.clipboard.writeText(code);
+      const el = btn as HTMLElement;
+      el.textContent = 'copied!';
+      setTimeout(() => { el.textContent = 'copy'; }, 2000);
+    });
+  });
+</script>
