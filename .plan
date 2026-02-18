@@ -1,0 +1,101 @@
+# Demo Server Implementation Plan
+
+## Goal
+Add a `demo-server/` folder inside the portfolio repo with a **real, runnable** e-commerce API + full test infrastructure that recruiters can clone and run with `docker compose up`.
+
+## Architecture Overview
+
+```
+demo-server/
+├── README.md                    # Recruiter-friendly quick start
+├── package.json                 # Separate from portfolio
+├── tsconfig.json
+├── Dockerfile                   # Multi-stage build
+├── docker-compose.yml           # API + Prometheus + Grafana + Alertmanager
+│
+├── src/                         # E-commerce API (Express + TypeScript)
+│   ├── app.ts                   # App factory (testable, no port binding)
+│   ├── index.ts                 # Entry point (calls app.listen)
+│   ├── routes/                  # products, orders, users, health, slow
+│   ├── middleware/               # auth, metrics, error handler
+│   ├── services/                # Business logic layer
+│   ├── models/                  # In-memory data stores
+│   ├── metrics/prometheus.ts    # prom-client metrics definitions
+│   └── seed.ts                  # Startup seed data
+│
+├── public/                      # Minimal HTML frontend (Playwright target)
+│   ├── index.html, login.html, products.html, cart.html
+│
+├── tests/
+│   ├── jest/                    # Unit + Integration tests
+│   │   ├── unit/                # Service-level tests (no HTTP)
+│   │   └── integration/         # Supertest API tests
+│   │
+│   ├── playwright/              # E2E browser tests
+│   │   ├── playwright.config.ts
+│   │   ├── pages/               # Page Object Models
+│   │   └── e2e/                 # Test specs
+│   │
+│   └── k6/                      # Performance / Load tests
+│       ├── smoke.js             # 1 VU, 30s sanity check
+│       ├── load.js              # 50-100 VUs, 5 min
+│       ├── stress.js            # Ramp to 400 VUs, find breaking point
+│       └── spike.js             # Sudden 500 VU spike
+│
+├── monitoring/
+│   ├── prometheus/prometheus.yml     # Scrape config + alert rules
+│   ├── grafana/
+│   │   ├── provisioning/             # Auto-configured datasource
+│   │   └── dashboards/               # Pre-built dashboards (JSON)
+│   └── alertmanager/alertmanager.yml # Alert routing
+│
+└── scripts/
+    └── run-all-tests.sh         # One-command test runner
+```
+
+## Implementation Phases
+
+### Phase 1: API Server
+- Express + TypeScript with in-memory stores (no DB dependency)
+- Endpoints: Products CRUD, Orders, Users (register/login/JWT), Health, Metrics, Slow endpoint
+- prom-client metrics: request duration histogram, request counter, error counter, business metrics
+- Seed data: 10 products, 1 admin user on startup
+
+### Phase 2: Minimal Frontend
+- Plain HTML pages (login, products, cart) served as Express static files
+- Proper data-testid attributes for Playwright
+- No framework — this exists as a test target only
+
+### Phase 3: Jest Tests
+- Unit tests for service layer (pure functions)
+- Integration tests with supertest against the app factory
+- Coverage thresholds configured
+
+### Phase 4: Playwright E2E Tests
+- Page Object Model pattern (matches showcase examples)
+- Login, product browsing, cart/checkout flows
+- API testing via Playwright request context
+- Auto-starts server via webServer config
+
+### Phase 5: K6 Performance Tests
+- Smoke, Load, Stress, Spike scenarios
+- Shared helpers (config, reusable checks)
+- Custom thresholds per scenario
+
+### Phase 6: Docker + Monitoring
+- 4 services: api, prometheus, grafana, alertmanager
+- Grafana dashboards pre-provisioned (request rate, latency, errors)
+- Alert rules: high latency, high error rate, slow endpoint overload
+- One command: `docker compose up`
+
+### Phase 7: Documentation
+- Clean README with architecture diagram
+- Test matrix table
+- Quick start instructions
+
+## Key Design Decisions
+- **In-memory stores** → zero DB dependency, instant startup, easy test reset
+- **App factory pattern** → `app.ts` exports app, `index.ts` binds port → testable
+- **Plain HTML frontend** → Playwright target only, no build step
+- **K6 in .js** → K6 runtime doesn't support TypeScript natively
+- **Grafana on port 3001** → avoids conflict with API on 3000
