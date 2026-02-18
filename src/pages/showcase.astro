@@ -1,19 +1,22 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Portfolio from '../components/Portfolio.astro';
+
+const baseUrl = (import.meta.env.BASE_URL || '/').replace(/\/+$/, '') || '';
+const homeUrl = baseUrl ? `${baseUrl}/` : '/';
 ---
 
 <Layout title="See What I Build — Oleh Bairak" description="Real code examples, frameworks, and processes from 12+ years of QA engineering. Playwright, K6, CI/CD, AI integrations, and more.">
   <!-- Sticky header with back nav -->
   <nav class="fixed top-0 w-full z-50 bg-primary/90 backdrop-blur-lg border-b border-white/5">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href={`${import.meta.env.BASE_URL}/`} class="flex items-center gap-2 text-gray-400 hover:text-accent transition-colors group">
+      <a href={homeUrl} class="flex items-center gap-2 text-gray-400 hover:text-accent transition-colors group">
         <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
         </svg>
         <span class="text-sm font-medium">Back to Home</span>
       </a>
-      <a href={`${import.meta.env.BASE_URL}/`} class="font-bold text-lg text-white hover:text-accent transition-colors">
+      <a href={homeUrl} class="font-bold text-lg text-white hover:text-accent transition-colors">
         <span class="font-mono text-accent">&lt;</span>OB<span class="font-mono text-accent">/&gt;</span>
       </a>
     </div>
@@ -44,13 +47,13 @@ import Portfolio from '../components/Portfolio.astro';
         <h3 class="text-xl font-bold text-white mb-3">Want to see more or discuss approaches?</h3>
         <p class="text-gray-400 mb-6">I'm always happy to dive deeper into any of these topics.</p>
         <div class="flex flex-wrap justify-center gap-4">
-          <a href={`${import.meta.env.BASE_URL}/#contact`} class="btn-primary">
+          <a href={`${homeUrl}#contact`} class="btn-primary">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
             Get in Touch
           </a>
-          <a href={`${import.meta.env.BASE_URL}/`} class="btn-outline">
+          <a href={homeUrl} class="btn-outline">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
             </svg>
