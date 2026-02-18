@@ -1,32 +1,24 @@
 ---
-const categories = [
+const pillars = [
   {
-    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>`,
-    title: 'QA Leadership',
-    count: 7,
-    description: 'Team building, standups, 1:1s, knowledge sharing, OKRs, documentation frameworks',
+    icon: `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>`,
+    title: 'I Think',
+    tagline: 'Strategy, leadership, and quality culture',
+    examples: ['Building QA teams from zero', 'Release process & quality gates', 'Data-driven QA metrics'],
   },
   {
-    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" /></svg>`,
-    title: 'DevOps & Infra',
-    count: 8,
-    description: 'CI/CD pipelines, Docker, release automation, alerting, secret management',
+    icon: `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>`,
+    title: 'I Build',
+    tagline: 'Frameworks, pipelines, and infrastructure',
+    examples: ['Scalable test frameworks', 'CI/CD with quality gates', 'Performance testing at scale'],
   },
   {
-    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>`,
-    title: 'Automation QA',
-    count: 7,
-    description: 'Playwright, K6, API testing, Hardhat, Cypress + Cucumber, database validation',
-  },
-  {
-    icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>`,
-    title: 'AI Integrations',
-    count: 10,
-    description: 'MCP servers, AI test generation, smart alerting, auto PR reviews, Grafana dashboards',
+    icon: `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>`,
+    title: 'I Innovate',
+    tagline: 'AI integrations and smart tooling',
+    examples: ['AI-powered test generation', 'Smart alerting & observability', 'Automated bug capture & triage'],
   },
 ];
-
-const totalExamples = categories.reduce((sum, c) => sum + c.count, 0);
 ---
 
 <section id="portfolio" class="relative bg-surface/30">
@@ -35,27 +27,34 @@ const totalExamples = categories.reduce((sum, c) => sum + c.count, 0);
       <p class="section-subtitle">// portfolio</p>
       <h2 class="section-title text-center">Work Examples</h2>
       <p class="text-gray-400 mt-4 leading-relaxed">
-        Real code, real processes, real results. {totalExamples} examples across
-        4 categories — from team leadership frameworks to AI-powered test pipelines.
+        9 flagship case studies showing how I approach quality engineering —
+        each one a complete story from problem to impact.
       </p>
     </div>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-12 stagger-children">
-      {categories.map((cat) => (
-        <div class="glass-card p-5 hover:border-accent/20 transition-all duration-300 group hover:-translate-y-1">
-          <div class="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent mb-4 group-hover:bg-accent/20 transition-colors">
-            <Fragment set:html={cat.icon} />
+    <div class="grid md:grid-cols-3 gap-5 mt-12 stagger-children">
+      {pillars.map((pillar) => (
+        <div class="glass-card p-6 hover:border-accent/20 transition-all duration-300 group hover:-translate-y-1">
+          <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center text-accent mb-5 group-hover:bg-accent/20 transition-colors">
+            <Fragment set:html={pillar.icon} />
           </div>
-          <h3 class="text-white font-semibold mb-1">{cat.title}</h3>
-          <p class="text-gray-500 text-sm mb-3">{cat.description}</p>
-          <span class="text-xs font-mono text-accent/70">{cat.count} examples</span>
+          <h3 class="text-xl font-bold text-white mb-1">{pillar.title}</h3>
+          <p class="text-gray-500 text-sm mb-5">{pillar.tagline}</p>
+          <ul class="space-y-2">
+            {pillar.examples.map((ex) => (
+              <li class="flex items-start gap-2 text-sm text-gray-400">
+                <span class="text-accent/50 mt-0.5">&#9656;</span>
+                <span>{ex}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       ))}
     </div>
 
     <div class="text-center mt-12 reveal">
       <a href={`${import.meta.env.BASE_URL}/showcase`} class="btn-primary text-lg group">
-        <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-5 h-5 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
         </svg>
