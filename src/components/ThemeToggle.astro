@@ -1,0 +1,94 @@
+---
+
+---
+
+<button
+  id="theme-toggle"
+  class="relative w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:-translate-y-0.5 group"
+  aria-label="Toggle dark/light mode"
+  type="button"
+>
+  <!-- Sun icon (shown in dark mode → click to go light) -->
+  <svg
+    class="theme-icon-sun w-5 h-5 text-gray-400 group-hover:text-yellow-400 transition-all duration-300 absolute"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+    />
+  </svg>
+
+  <!-- Moon icon (shown in light mode → click to go dark) -->
+  <svg
+    class="theme-icon-moon w-5 h-5 text-slate-500 group-hover:text-accent transition-all duration-300 absolute"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+    />
+  </svg>
+</button>
+
+<style>
+  /* Dark mode: show sun, hide moon */
+  .dark .theme-icon-sun {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+  .dark .theme-icon-moon {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.5);
+  }
+
+  /* Light mode: show moon, hide sun */
+  html:not(.dark) .theme-icon-sun {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.5);
+  }
+  html:not(.dark) .theme-icon-moon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+
+  .theme-icon-sun,
+  .theme-icon-moon {
+    transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('theme-toggle')!;
+
+  toggle.addEventListener('click', () => {
+    const html = document.documentElement;
+    const isDark = html.classList.contains('dark');
+
+    // Add transition class for smooth theme change
+    document.body.classList.add('theme-transition');
+
+    if (isDark) {
+      html.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#f8fafc');
+    } else {
+      html.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#0f172a');
+    }
+
+    // Remove transition class after animation completes
+    setTimeout(() => {
+      document.body.classList.remove('theme-transition');
+    }, 400);
+  });
+</script>

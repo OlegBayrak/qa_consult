@@ -584,7 +584,7 @@ export const pillars: Pillar[] = [
   },
   {
     id: 'innovate',
-    label: 'I Innovate',
+    label: 'AI Innovate',
     tagline: 'AI integrations and smart tooling',
     icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>`,
     items: innovate,

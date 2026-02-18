@@ -43,12 +43,12 @@ const skillCategories = [
 ];
 ---
 
-<section id="skills" class="relative bg-surface/30">
+<section id="skills" class="relative dark:bg-surface/30 bg-slate-100/50">
   <div class="section-container">
     <div class="reveal">
       <p class="section-subtitle">// skills & tools</p>
       <h2 class="section-title">What I Work With</h2>
-      <p class="text-gray-400 mt-4 max-w-2xl">
+      <p class="dark:text-gray-400 text-slate-500 mt-4 max-w-2xl">
         A broad toolkit refined over 12+ years — from manual exploratory testing to
         building full automation infrastructure.
       </p>
@@ -59,11 +59,11 @@ const skillCategories = [
         <div class="glass-card p-5 hover:border-accent/20 transition-all duration-300 group hover:-translate-y-1">
           <div class="flex items-center gap-3 mb-4">
             <span class="text-accent text-lg font-mono" set:html={category.icon} />
-            <h3 class="text-white font-semibold text-sm">{category.title}</h3>
+            <h3 class="dark:text-white text-slate-900 font-semibold text-sm">{category.title}</h3>
           </div>
           <div class="flex flex-wrap gap-2">
             {category.skills.map((skill) => (
-              <span class="px-3 py-1 text-xs font-medium bg-white/5 text-gray-300 rounded-full
+              <span class="px-3 py-1 text-xs font-medium dark:bg-white/5 bg-slate-100 dark:text-gray-300 text-slate-600 rounded-full
                            group-hover:bg-accent/10 group-hover:text-accent-light transition-colors duration-300">
                 {skill}
               </span>

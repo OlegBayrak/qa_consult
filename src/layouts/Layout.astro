@@ -4,21 +4,23 @@ interface Props {
   description?: string;
 }
 
-const { title, description = 'Oleh Bairak — QA Tech Lead & Test Infrastructure Engineer. 12+ years in automation, test strategy, and quality engineering across Web3 and SaaS.' } = Astro.props;
+const { title, description = 'Oleh Bairak — QA Tech Lead & Test Infrastructure Manager. 12+ years in automation, test strategy, and quality engineering across Web3 and SaaS.' } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="author" content="Oleh Bairak" />
+    <meta name="theme-color" content="#0f172a" />
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://olehbairak.github.io/qa_consult/" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -30,6 +32,20 @@ const { title, description = 'Oleh Bairak — QA Tech Lead & Test Infrastructure
 
     <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}/favicon.svg`} />
     <title>{title}</title>
+
+    <!-- Prevent flash of wrong theme -->
+    <script is:inline>
+      (function() {
+        const stored = localStorage.getItem('theme');
+        if (stored === 'light') {
+          document.documentElement.classList.remove('dark');
+        } else if (stored === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
   </head>
   <body>
     <slot />
@@ -75,6 +91,35 @@ const { title, description = 'Oleh Bairak — QA Tech Lead & Test Infrastructure
 
       backToTop.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Animated counter for stats
+      const counterObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const el = entry.target as HTMLElement;
+              const target = parseInt(el.dataset.target || '0');
+              const suffix = el.dataset.suffix || '';
+              let current = 0;
+              const increment = Math.ceil(target / 40);
+              const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                  current = target;
+                  clearInterval(timer);
+                }
+                el.textContent = current + suffix;
+              }, 30);
+              counterObserver.unobserve(el);
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      document.querySelectorAll('[data-counter]').forEach((el) => {
+        counterObserver.observe(el);
       });
     </script>
   </body>

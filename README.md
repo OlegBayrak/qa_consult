@@ -1,6 +1,6 @@
 ## QA Consult — Oleh Bairak
 
-Personal portfolio for **QA Tech Lead & Test Infrastructure Engineer** work, built with **Astro + Tailwind CSS**.
+Personal portfolio for **QA Tech Lead & Test Infrastructure Manager** work, built with **Astro + Tailwind CSS**.
 
 The site highlights experience, skills, and real examples of test infrastructure, automation, and tooling.
 
