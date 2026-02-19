@@ -324,6 +324,185 @@ const build: ShowcaseItem[] = [
     ],
   },
   {
+    id: 'github-cicd-setup',
+    title: 'GitHub CI/CD Setup & Repository Configuration',
+    subtitle: 'Branch protection, CODEOWNERS, conventional commits, and release automation wired together',
+    problem:
+      'New engineers pushed directly to main, PRs merged without reviews, release tags were created manually, and changelogs were copy-pasted by hand. Version discipline was non-existent.',
+    approach:
+      'Configured GitHub repository rules end-to-end: branch protection with required status checks, CODEOWNERS for automatic review assignment, conventional commits enforced via commitlint, and semantic-release for automated versioning and changelog generation.',
+    impact:
+      'Zero direct pushes to main since rollout. Release prep time dropped from 3 hours to 0 — fully automated. Every PR has the right reviewers assigned automatically.',
+    tags: ['GitHub', 'Branch Protection', 'Conventional Commits', 'semantic-release'],
+    sections: [
+      {
+        heading: 'Branch Protection Rules',
+        code: `<span class="text-gray-500"># GitHub branch protection (via gh CLI or Terraform)</span>
+<span class="text-gray-500"># Applied to: main, develop</span>
+
+<span class="text-purple-400">required_status_checks</span>:
+  <span class="text-purple-400">strict</span>: <span class="text-cyan-400">true</span>          <span class="text-gray-500"># Must be up-to-date with base branch</span>
+  <span class="text-purple-400">contexts</span>:
+    - <span class="text-green-400">lint-and-types</span>
+    - <span class="text-green-400">unit-tests</span>
+    - <span class="text-green-400">smoke-e2e</span>
+    - <span class="text-green-400">security-scan</span>
+
+<span class="text-purple-400">required_pull_request_reviews</span>:
+  <span class="text-purple-400">required_approving_review_count</span>: <span class="text-cyan-400">1</span>
+  <span class="text-purple-400">dismiss_stale_reviews</span>: <span class="text-cyan-400">true</span>
+  <span class="text-purple-400">require_code_owner_reviews</span>: <span class="text-cyan-400">true</span>
+
+<span class="text-purple-400">restrictions</span>:
+  <span class="text-purple-400">push</span>: []              <span class="text-gray-500"># Nobody pushes directly</span>
+  <span class="text-purple-400">force_push</span>: <span class="text-cyan-400">false</span>
+  <span class="text-purple-400">deletions</span>: <span class="text-cyan-400">false</span>
+
+<span class="text-purple-400">merge_strategies</span>:
+  <span class="text-purple-400">allow_squash_merge</span>: <span class="text-cyan-400">true</span>   <span class="text-gray-500"># Clean history on main</span>
+  <span class="text-purple-400">allow_merge_commit</span>: <span class="text-cyan-400">false</span>
+  <span class="text-purple-400">allow_rebase_merge</span>: <span class="text-cyan-400">false</span>`,
+        filename: '.github/branch-protection.yml',
+      },
+      {
+        heading: 'CODEOWNERS — Automatic Review Assignment',
+        code: `<span class="text-gray-500"># .github/CODEOWNERS</span>
+<span class="text-gray-500"># Pattern → GitHub team / individual</span>
+
+<span class="text-gray-500"># Global fallback — QA lead reviews everything</span>
+<span class="text-white">*</span>                           <span class="text-green-400">@org/qa-team</span>
+
+<span class="text-gray-500"># CI/CD changes need DevOps eyes too</span>
+<span class="text-white">.github/</span>                   <span class="text-green-400">@org/devops @org/qa-lead</span>
+
+<span class="text-gray-500"># Test framework — QA owns it</span>
+<span class="text-white">tests/</span>                     <span class="text-green-400">@org/qa-team</span>
+<span class="text-white">playwright.config.ts</span>       <span class="text-green-400">@org/qa-lead</span>
+
+<span class="text-gray-500"># Infra and secrets — extra scrutiny</span>
+<span class="text-white">**/docker-compose*.yml</span>    <span class="text-green-400">@org/devops @org/qa-lead</span>
+<span class="text-white">config/</span>                    <span class="text-green-400">@org/backend-lead @org/qa-lead</span>
+
+<span class="text-gray-500"># Performance tests — QA + Backend</span>
+<span class="text-white">tests/load/</span>                <span class="text-green-400">@org/qa-team @org/backend-team</span>`,
+        filename: '.github/CODEOWNERS',
+      },
+      {
+        heading: 'Conventional Commits + Automated Releases',
+        code: `<span class="text-gray-500">// commitlint.config.js — enforced in CI</span>
+<span class="text-purple-400">module.exports</span> = {
+  <span class="text-white">extends</span>: [<span class="text-green-400">'@commitlint/config-conventional'</span>],
+  <span class="text-white">rules</span>: {
+    <span class="text-green-400">'type-enum'</span>: [<span class="text-cyan-400">2</span>, <span class="text-green-400">'always'</span>, [
+      <span class="text-green-400">'feat'</span>, <span class="text-green-400">'fix'</span>, <span class="text-green-400">'perf'</span>, <span class="text-green-400">'test'</span>,
+      <span class="text-green-400">'ci'</span>, <span class="text-green-400">'docs'</span>, <span class="text-green-400">'refactor'</span>, <span class="text-green-400">'chore'</span>,
+    ]],
+    <span class="text-green-400">'scope-case'</span>: [<span class="text-cyan-400">2</span>, <span class="text-green-400">'always'</span>, <span class="text-green-400">'kebab-case'</span>],
+    <span class="text-green-400">'subject-max-length'</span>: [<span class="text-cyan-400">2</span>, <span class="text-green-400">'always'</span>, <span class="text-cyan-400">72</span>],
+  },
+};
+
+<span class="text-gray-500">// release.config.js — semantic-release</span>
+<span class="text-purple-400">module.exports</span> = {
+  <span class="text-white">branches</span>: [<span class="text-green-400">'main'</span>],
+  <span class="text-white">plugins</span>: [
+    <span class="text-green-400">'@semantic-release/commit-analyzer'</span>,
+    <span class="text-green-400">'@semantic-release/release-notes-generator'</span>,
+    <span class="text-green-400">'@semantic-release/changelog'</span>,    <span class="text-gray-500">// Writes CHANGELOG.md</span>
+    <span class="text-green-400">'@semantic-release/github'</span>,        <span class="text-gray-500">// Creates GitHub Release</span>
+    [<span class="text-green-400">'@semantic-release/git'</span>, {
+      <span class="text-white">assets</span>: [<span class="text-green-400">'CHANGELOG.md'</span>, <span class="text-green-400">'package.json'</span>],
+      <span class="text-white">message</span>: <span class="text-green-400">'chore(release): \${nextRelease.version} [skip ci]'</span>,
+    }],
+  ],
+};`,
+        filename: 'commitlint.config.js + release.config.js',
+      },
+    ],
+  },
+  {
+    id: 'ai-pr-review',
+    title: 'AI-Powered PR Review with CodeRabbit & GitHub Copilot',
+    subtitle: 'AI reviewers that catch bugs, enforce conventions, and generate QA checklists before humans even open the PR',
+    problem:
+      'Human reviewers missed edge cases, style inconsistencies slipped through, and QA-specific concerns (missing test coverage, untested error paths) were rarely flagged at review time.',
+    approach:
+      'Set up CodeRabbit for automated AI code review with a custom `.coderabbit.yaml` tuned for QA concerns. Layered in GitHub Copilot PR summaries and a custom GitHub Action that posts a QA-specific checklist based on what changed.',
+    impact:
+      'AI review catches ~40% of issues before human review. PR cycle time reduced by 30% — reviewers spend time on architecture, not nitpicks. Zero PRs land without a QA checklist.',
+    tags: ['CodeRabbit', 'GitHub Copilot', 'AI Review', 'PR Automation'],
+    sections: [
+      {
+        heading: 'CodeRabbit Configuration',
+        code: `<span class="text-gray-500"># .coderabbit.yaml — AI reviewer tuned for QA context</span>
+
+<span class="text-purple-400">language</span>: <span class="text-green-400">en-US</span>
+<span class="text-purple-400">tone_instructions</span>: <span class="text-green-400">"Be direct. Focus on correctness, test coverage, and edge cases."</span>
+
+<span class="text-purple-400">reviews</span>:
+  <span class="text-purple-400">profile</span>: <span class="text-green-400">assertive</span>
+  <span class="text-purple-400">request_changes_workflow</span>: <span class="text-cyan-400">true</span>
+  <span class="text-purple-400">high_level_summary</span>: <span class="text-cyan-400">true</span>
+  <span class="text-purple-400">poem</span>: <span class="text-cyan-400">false</span>
+
+  <span class="text-purple-400">path_instructions</span>:
+    - <span class="text-purple-400">path</span>: <span class="text-green-400">"tests/**"</span>
+      <span class="text-purple-400">instructions</span>: <span class="text-green-400">"Check for: hardcoded waits, CSS selectors, test interdependence, missing negative cases. Flag any test that doesn't clean up state."</span>
+    - <span class="text-purple-400">path</span>: <span class="text-green-400">"src/api/**"</span>
+      <span class="text-purple-400">instructions</span>: <span class="text-green-400">"Verify error handling for all status codes. Check if new endpoints have corresponding test coverage. Flag missing input validation."</span>
+    - <span class="text-purple-400">path</span>: <span class="text-green-400">".github/workflows/**"</span>
+      <span class="text-purple-400">instructions</span>: <span class="text-green-400">"Review for: missing timeout values, secrets exposure, missing failure notifications, and steps that run without caching."</span>
+
+<span class="text-purple-400">chat</span>:
+  <span class="text-purple-400">auto_reply</span>: <span class="text-cyan-400">true</span>`,
+        filename: '.coderabbit.yaml',
+      },
+      {
+        heading: 'Auto-Generated QA Checklist Action',
+        code: `<span class="text-gray-500"># Posts a tailored QA checklist as a PR comment based on changed files</span>
+<span class="text-purple-400">name</span>: <span class="text-green-400">QA Checklist</span>
+<span class="text-purple-400">on</span>:
+  <span class="text-purple-400">pull_request</span>:
+    <span class="text-purple-400">types</span>: [<span class="text-green-400">opened</span>]
+
+<span class="text-purple-400">jobs</span>:
+  <span class="text-purple-400">checklist</span>:
+    <span class="text-purple-400">runs-on</span>: <span class="text-green-400">ubuntu-latest</span>
+    <span class="text-purple-400">steps</span>:
+      - <span class="text-purple-400">uses</span>: <span class="text-green-400">actions/checkout@v4</span>
+      - <span class="text-purple-400">name</span>: <span class="text-green-400">Get changed files</span>
+        <span class="text-purple-400">id</span>: <span class="text-green-400">changes</span>
+        <span class="text-purple-400">uses</span>: <span class="text-green-400">tj-actions/changed-files@v44</span>
+      - <span class="text-purple-400">name</span>: <span class="text-green-400">Post QA checklist</span>
+        <span class="text-purple-400">uses</span>: <span class="text-green-400">actions/github-script@v7</span>
+        <span class="text-purple-400">with</span>:
+          <span class="text-purple-400">script</span>: |
+            <span class="text-purple-400">const</span> files = <span class="text-green-400">'\${{ steps.changes.outputs.all_changed_files }}'</span>;
+            <span class="text-purple-400">const</span> hasApi = files.includes(<span class="text-green-400">'api/'</span>);
+            <span class="text-purple-400">const</span> hasUI  = files.includes(<span class="text-green-400">'components/'</span>);
+            <span class="text-purple-400">const</span> hasDB  = files.includes(<span class="text-green-400">'migrations/'</span>);
+
+            <span class="text-purple-400">let</span> checklist = <span class="text-green-400">'## QA Checklist\\n'</span>;
+            <span class="text-purple-400">if</span> (hasApi) checklist += <span class="text-green-400">'- [ ] All API endpoints tested (happy + error paths)\\n'</span>
+                                      + <span class="text-green-400">'- [ ] Schema validation covers new fields\\n'</span>;
+            <span class="text-purple-400">if</span> (hasUI)  checklist += <span class="text-green-400">'- [ ] Cross-browser smoke (Chrome + Safari)\\n'</span>
+                                      + <span class="text-green-400">'- [ ] Mobile viewport checked\\n'</span>;
+            <span class="text-purple-400">if</span> (hasDB)  checklist += <span class="text-green-400">'- [ ] Migration tested on staging data copy\\n'</span>
+                                      + <span class="text-green-400">'- [ ] Rollback script verified\\n'</span>;
+
+            github.rest.issues.createComment({
+              ...context.repo, issue_number: context.issue.number, body: checklist
+            });`,
+        filename: '.github/workflows/qa-checklist.yml',
+      },
+      {
+        heading: 'Review Patterns That Actually Work',
+        content:
+          'AI handles the mechanical layer: style, naming, missing null checks, obvious missing tests. Humans focus on: architectural trade-offs, domain correctness, security implications, and cross-team impact. The separation makes reviews faster and higher quality — reviewers aren\'t fatigued by nitpicks before they reach the important parts.',
+      },
+    ],
+  },
+  {
     id: 'performance-testing',
     title: 'Performance Testing at Scale',
     subtitle: 'K6 load testing integrated into CI with Grafana dashboards and automatic regression detection',
