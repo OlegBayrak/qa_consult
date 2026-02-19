@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Portfolio from '../components/Portfolio.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
 
 const baseUrl = (import.meta.env.BASE_URL || '/').replace(/\/+$/, '') || '';
 const homeUrl = baseUrl ? `${baseUrl}/` : '/';
@@ -8,17 +9,20 @@ const homeUrl = baseUrl ? `${baseUrl}/` : '/';
 
 <Layout title="See What I Build — Oleh Bairak" description="Real code examples, frameworks, and processes from 12+ years of QA engineering. Playwright, K6, CI/CD, AI integrations, and more.">
   <!-- Sticky header with back nav -->
-  <nav class="fixed top-0 w-full z-50 bg-primary/90 backdrop-blur-lg border-b border-white/5">
+  <nav class="fixed top-0 w-full z-50 bg-white/90 dark:bg-primary/90 backdrop-blur-lg border-b border-slate-200 dark:border-white/5">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href={homeUrl} class="flex items-center gap-2 text-gray-400 hover:text-accent transition-colors group">
+      <a href={homeUrl} class="flex items-center gap-2 text-slate-500 dark:text-gray-400 hover:text-accent transition-colors group">
         <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
         </svg>
         <span class="text-sm font-medium">Back to Home</span>
       </a>
-      <a href={homeUrl} class="font-bold text-lg text-white hover:text-accent transition-colors">
-        <span class="font-mono text-accent">&lt;</span>OB<span class="font-mono text-accent">/&gt;</span>
-      </a>
+      <div class="flex items-center gap-4">
+        <ThemeToggle />
+        <a href={homeUrl} class="font-bold text-lg text-slate-900 dark:text-white hover:text-accent transition-colors">
+          <span class="font-mono text-accent">&lt;</span>OB<span class="font-mono text-accent">/&gt;</span>
+        </a>
+      </div>
     </div>
   </nav>
 
@@ -27,11 +31,11 @@ const homeUrl = baseUrl ? `${baseUrl}/` : '/';
     <div class="section-container !pb-0">
       <div class="max-w-3xl">
         <p class="font-mono text-accent text-sm mb-4 animate-fade-in">// showcase</p>
-        <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4 animate-fade-up">
+        <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 dark:text-white mb-4 animate-fade-up">
           See What I
           <span class="gradient-text">Build</span>
         </h1>
-        <p class="text-lg text-gray-400 leading-relaxed animate-fade-up" style="animation-delay: 0.15s;">
+        <p class="text-lg text-slate-500 dark:text-gray-400 leading-relaxed animate-fade-up" style="animation-delay: 0.15s;">
           Real examples from my work — code snippets, process frameworks, and
           engineering approaches I've used across teams and projects. Click any item
           to expand the details.
@@ -44,8 +48,8 @@ const homeUrl = baseUrl ? `${baseUrl}/` : '/';
     <!-- Bottom CTA -->
     <div class="section-container !pt-0">
       <div class="glass-card p-8 text-center reveal">
-        <h3 class="text-xl font-bold text-white mb-3">Want to see more or discuss approaches?</h3>
-        <p class="text-gray-400 mb-6">I'm always happy to dive deeper into any of these topics.</p>
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Want to see more or discuss approaches?</h3>
+        <p class="text-slate-500 dark:text-gray-400 mb-6">I'm always happy to dive deeper into any of these topics.</p>
         <div class="flex flex-wrap justify-center gap-4">
           <a href={`${homeUrl}#contact`} class="btn-primary">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -65,10 +69,10 @@ const homeUrl = baseUrl ? `${baseUrl}/` : '/';
   </main>
 
   <!-- Footer -->
-  <footer class="border-t border-white/5">
+  <footer class="border-t border-slate-200 dark:border-white/5">
     <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
-      <p class="text-gray-500 text-sm">&copy; 2026 Oleh Bairak. Built with Astro & Tailwind CSS.</p>
-      <p class="text-gray-600 text-xs font-mono">Designed & developed with quality in mind.</p>
+      <p class="text-slate-500 dark:text-gray-500 text-sm">&copy; 2026 Oleh Bairak. Built with Astro & Tailwind CSS.</p>
+      <p class="text-slate-400 dark:text-gray-600 text-xs font-mono">Designed & developed with quality in mind.</p>
     </div>
   </footer>
 </Layout>

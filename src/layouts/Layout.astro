@@ -30,6 +30,13 @@ const { title, description = 'Oleh Bairak — QA Tech Lead & Test Infrastructure
 
     <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}/favicon.svg`} />
     <title>{title}</title>
+    <script is:inline>
+      (function() {
+        var t = localStorage.getItem('theme');
+        var d = t === 'dark' || (t !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (d) document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark');
+      })();
+    </script>
   </head>
   <body>
     <slot />

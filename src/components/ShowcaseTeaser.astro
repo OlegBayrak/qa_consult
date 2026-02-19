@@ -21,12 +21,12 @@ const pillars = [
 ];
 ---
 
-<section id="portfolio" class="relative bg-surface/30">
+<section id="portfolio" class="relative bg-slate-100/80 dark:bg-surface/30">
   <div class="section-container">
     <div class="text-center max-w-2xl mx-auto reveal">
       <p class="section-subtitle">// portfolio</p>
       <h2 class="section-title text-center">Work Examples</h2>
-      <p class="text-gray-400 mt-4 leading-relaxed">
+      <p class="text-slate-500 dark:text-gray-400 mt-4 leading-relaxed">
         9 flagship case studies showing how I approach quality engineering —
         each one a complete story from problem to impact.
       </p>
@@ -38,11 +38,11 @@ const pillars = [
           <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center text-accent mb-5 group-hover:bg-accent/20 transition-colors">
             <Fragment set:html={pillar.icon} />
           </div>
-          <h3 class="text-xl font-bold text-white mb-1">{pillar.title}</h3>
-          <p class="text-gray-500 text-sm mb-5">{pillar.tagline}</p>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1">{pillar.title}</h3>
+          <p class="text-slate-500 dark:text-gray-500 text-sm mb-5">{pillar.tagline}</p>
           <ul class="space-y-2">
             {pillar.examples.map((ex) => (
-              <li class="flex items-start gap-2 text-sm text-gray-400">
+              <li class="flex items-start gap-2 text-sm text-slate-600 dark:text-gray-400">
                 <span class="text-accent/50 mt-0.5">&#9656;</span>
                 <span>{ex}</span>
               </li>
