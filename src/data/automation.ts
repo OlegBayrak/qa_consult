@@ -1,7 +1,8 @@
 export const automation = [
   {
     title: 'Playwright Project Structure & Configuration',
-    description: 'Scalable Playwright test framework with Page Object Model, custom fixtures, and multi-environment support.',
+    description:
+      'Scalable Playwright test framework with Page Object Model, custom fixtures, and multi-environment support.',
     type: 'code',
     tags: ['Playwright', 'TypeScript', 'Architecture'],
     filename: 'playwright.config.ts',
@@ -42,11 +43,13 @@ export const automation = [
     },
   ],
 });`,
-    impact: 'Clean, maintainable framework used across 4 projects. New test engineers productive within 2 days.',
+    impact:
+      'Clean, maintainable framework used across 4 projects. New test engineers productive within 2 days.',
   },
   {
     title: 'Page Object Model Pattern',
-    description: 'Reusable Page Object classes with typed locators, action methods, and assertion helpers.',
+    description:
+      'Reusable Page Object classes with typed locators, action methods, and assertion helpers.',
     type: 'code',
     tags: ['Playwright', 'POM', 'TypeScript'],
     filename: 'pages/LoginPage.ts',
@@ -83,11 +86,13 @@ export const automation = [
     <span class="text-purple-400">await</span> <span class="text-yellow-400">expect</span>(<span class="text-purple-400">this</span>.page).<span class="text-yellow-400">toHaveURL</span>(<span class="text-green-400">/dashboard/</span>);
   }
 }`,
-    impact: 'Single source of truth for each page. Locator changes fixed in one place, not scattered across 50 test files.',
+    impact:
+      'Single source of truth for each page. Locator changes fixed in one place, not scattered across 50 test files.',
   },
   {
     title: 'K6 Load Testing Script',
-    description: 'Performance testing with K6: staged load, thresholds, custom metrics, and CI integration.',
+    description:
+      'Performance testing with K6: staged load, thresholds, custom metrics, and CI integration.',
     type: 'code',
     tags: ['K6', 'Performance', 'Load Testing'],
     filename: 'tests/load/api-load-test.js',
@@ -127,7 +132,8 @@ export const automation = [
 
   <span class="text-yellow-400">sleep</span>(<span class="text-cyan-400">1</span>);
 }`,
-    impact: 'Caught a critical N+1 query issue that only appeared under 150+ concurrent users. Fixed before launch.',
+    impact:
+      'Caught a critical N+1 query issue that only appeared under 150+ concurrent users. Fixed before launch.',
   },
   {
     title: 'API Testing Framework with Swagger Validation',
@@ -172,11 +178,13 @@ test.<span class="text-yellow-400">describe</span>(<span class="text-green-400">
       );
   });
 });`,
-    impact: 'Schema drift caught automatically. API contract violations detected before reaching frontend.',
+    impact:
+      'Schema drift caught automatically. API contract violations detected before reaching frontend.',
   },
   {
     title: 'Blockchain Smart Contract Testing with Hardhat',
-    description: 'Testing Solidity smart contracts: unit tests, gas optimization, event validation, and edge cases.',
+    description:
+      'Testing Solidity smart contracts: unit tests, gas optimization, event validation, and edge cases.',
     type: 'code',
     tags: ['Hardhat', 'Solidity', 'Web3', 'Blockchain'],
     filename: 'test/Token.test.ts',
@@ -219,11 +227,13 @@ test.<span class="text-yellow-400">describe</span>(<span class="text-green-400">
     ).<span class="text-yellow-400">to</span>.<span class="text-yellow-400">be</span>.<span class="text-yellow-400">revertedWith</span>(<span class="text-green-400">'Insufficient balance'</span>);
   });
 });`,
-    impact: 'Full smart contract test coverage including edge cases, reentrancy attacks, and gas optimization checks.',
+    impact:
+      'Full smart contract test coverage including edge cases, reentrancy attacks, and gas optimization checks.',
   },
   {
     title: 'Cypress + Cucumber BDD Tests',
-    description: 'Behavior-driven tests using Cypress with Cucumber Gherkin syntax for stakeholder-readable scenarios.',
+    description:
+      'Behavior-driven tests using Cypress with Cucumber Gherkin syntax for stakeholder-readable scenarios.',
     type: 'code',
     tags: ['Cypress', 'Cucumber', 'BDD'],
     filename: 'cypress/e2e/checkout.feature',
@@ -255,7 +265,8 @@ test.<span class="text-yellow-400">describe</span>(<span class="text-green-400">
       | address  | Address is required      |
       | city     | City is required         |
       | zip      | Valid zip code required  |`,
-    impact: 'Product owners and stakeholders can read and validate test scenarios directly. Bridged the gap between QA and business.',
+    impact:
+      'Product owners and stakeholders can read and validate test scenarios directly. Bridged the gap between QA and business.',
   },
   {
     title: 'Database Testing — PostgreSQL Data Validation',
@@ -292,6 +303,7 @@ test.<span class="text-yellow-400">describe</span>(<span class="text-green-400">
       <span class="text-yellow-400">expect</span>(orphans.rows).toHaveLength(<span class="text-cyan-400">0</span>);
   });
 });`,
-    impact: 'Caught a pricing calculation bug where tax rounding caused $0.01-$0.03 discrepancies on 15% of orders.',
+    impact:
+      'Caught a pricing calculation bug where tax rounding caused $0.01-$0.03 discrepancies on 15% of orders.',
   },
 ];

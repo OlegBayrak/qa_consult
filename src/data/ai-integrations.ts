@@ -1,28 +1,34 @@
 export const aiIntegrations = [
   {
     title: 'AI Meeting Notes — Auto Action Points & Deadline Tracking',
-    description: 'AI-powered meeting transcription that auto-generates action items, assigns owners, tracks deadlines, and alerts on blocked/stale tasks.',
+    description:
+      'AI-powered meeting transcription that auto-generates action items, assigns owners, tracks deadlines, and alerts on blocked/stale tasks.',
     type: 'case-study',
     tags: ['AI', 'Meetings', 'Automation', 'Slack'],
     details: [
       {
         heading: 'How It Works',
-        content: 'Meeting recordings are processed through AI (Whisper + GPT). The system extracts action items, identifies assignees from the conversation, suggests deadlines based on sprint cadence, and pushes structured tasks to Linear/Jira.',
+        content:
+          'Meeting recordings are processed through AI (Whisper + GPT). The system extracts action items, identifies assignees from the conversation, suggests deadlines based on sprint cadence, and pushes structured tasks to Linear/Jira.',
       },
       {
         heading: 'Smart Alerting',
-        content: 'Tasks auto-linked to sprint boards. If a task stays in "In Progress" for >3 days or "Blocked" for >1 day, Slack alerts fire to the assignee + team lead. Weekly digest summarizes overdue items, completion rate, and blocked work.',
+        content:
+          'Tasks auto-linked to sprint boards. If a task stays in "In Progress" for >3 days or "Blocked" for >1 day, Slack alerts fire to the assignee + team lead. Weekly digest summarizes overdue items, completion rate, and blocked work.',
       },
       {
         heading: 'Integration Flow',
-        content: 'Google Meet → Otter.ai/Fireflies (transcript) → Custom AI pipeline (action extraction) → Linear API (task creation) → Slack webhooks (alerts & reminders) → Notion (meeting archive with searchable notes).',
+        content:
+          'Google Meet → Otter.ai/Fireflies (transcript) → Custom AI pipeline (action extraction) → Linear API (task creation) → Slack webhooks (alerts & reminders) → Notion (meeting archive with searchable notes).',
       },
     ],
-    impact: 'Action item follow-through improved from 60% to 92%. Zero "forgotten" tasks from meetings. Average task completion 2 days faster.',
+    impact:
+      'Action item follow-through improved from 60% to 92%. Zero "forgotten" tasks from meetings. Average task completion 2 days faster.',
   },
   {
     title: 'Automatic Release Pipeline Alerting System',
-    description: 'End-to-end release pipeline monitoring with intelligent alerts at every stage — build, test, deploy, post-deploy health.',
+    description:
+      'End-to-end release pipeline monitoring with intelligent alerts at every stage — build, test, deploy, post-deploy health.',
     type: 'code',
     tags: ['CI/CD', 'Alerting', 'Slack', 'Release'],
     filename: 'scripts/release-alerting.ts',
@@ -62,11 +68,13 @@ export const aiIntegrations = [
     });
   }
 }`,
-    impact: 'Release failures detected in <30 seconds. Rollback initiated automatically on health check failure. Zero silent failures.',
+    impact:
+      'Release failures detected in <30 seconds. Rollback initiated automatically on health check failure. Zero silent failures.',
   },
   {
     title: 'MCP Server for AI-Assisted Test Generation',
-    description: 'Custom MCP (Model Context Protocol) server that provides AI assistants with context about the codebase to generate tests.',
+    description:
+      'Custom MCP (Model Context Protocol) server that provides AI assistants with context about the codebase to generate tests.',
     type: 'code',
     tags: ['MCP', 'AI', 'Test Generation'],
     filename: 'mcp-server/tools/generate-tests.ts',
@@ -112,32 +120,39 @@ server.<span class="text-yellow-400">resource</span>(
     }],
   })
 );`,
-    impact: 'AI-generated tests follow project conventions. Test creation speed increased 5x for repetitive CRUD scenarios.',
+    impact:
+      'AI-generated tests follow project conventions. Test creation speed increased 5x for repetitive CRUD scenarios.',
   },
   {
     title: 'BrowserStack + JAM Bug Capture Integration',
-    description: 'Automated bug capture workflow: BrowserStack screenshots, JAM recordings, auto-filed Jira tickets with reproduction steps.',
+    description:
+      'Automated bug capture workflow: BrowserStack screenshots, JAM recordings, auto-filed Jira tickets with reproduction steps.',
     type: 'case-study',
     tags: ['BrowserStack', 'JAM', 'Bug Capture', 'Jira'],
     details: [
       {
         heading: 'Bug Capture Flow',
-        content: 'QA finds a bug → clicks JAM extension → records screen + console logs + network requests → JAM auto-generates a shareable link. BrowserStack provides cross-browser screenshots. Both attach to a Jira ticket created via automation.',
+        content:
+          'QA finds a bug → clicks JAM extension → records screen + console logs + network requests → JAM auto-generates a shareable link. BrowserStack provides cross-browser screenshots. Both attach to a Jira ticket created via automation.',
       },
       {
         heading: 'Auto-Filed Tickets',
-        content: 'Integration between JAM/BrowserStack and Jira: bug reports auto-populate with environment info, browser version, OS, console errors, network failures, and reproduction video. Template ensures consistent bug reports across the team.',
+        content:
+          'Integration between JAM/BrowserStack and Jira: bug reports auto-populate with environment info, browser version, OS, console errors, network failures, and reproduction video. Template ensures consistent bug reports across the team.',
       },
       {
         heading: 'Triage Dashboard',
-        content: 'Custom Jira dashboard showing: new bugs by source (manual, automated, user-reported), average resolution time, bug trends by feature area, and reopened bugs tracker.',
+        content:
+          'Custom Jira dashboard showing: new bugs by source (manual, automated, user-reported), average resolution time, bug trends by feature area, and reopened bugs tracker.',
       },
     ],
-    impact: 'Bug report creation time dropped from 15min to 2min. Developer reproduction time cut by 70% thanks to auto-captured context.',
+    impact:
+      'Bug report creation time dropped from 15min to 2min. Developer reproduction time cut by 70% thanks to auto-captured context.',
   },
   {
     title: 'Linear Integration — Auto Task Sync & Status Tracking',
-    description: 'Bidirectional sync between test results and Linear project management. Test failures auto-create issues, passing tests auto-close them.',
+    description:
+      'Bidirectional sync between test results and Linear project management. Test failures auto-create issues, passing tests auto-close them.',
     type: 'code',
     tags: ['Linear', 'API', 'Automation', 'Webhooks'],
     filename: 'integrations/linear-sync.ts',
@@ -180,11 +195,13 @@ server.<span class="text-yellow-400">resource</span>(
     <span class="text-purple-400">await</span> <span class="text-yellow-400">autoCloseIfFixed</span>(pass.name);
   }
 }`,
-    impact: 'Test failures automatically tracked in project management. No more manual bug filing for automated test failures.',
+    impact:
+      'Test failures automatically tracked in project management. No more manual bug filing for automated test failures.',
   },
   {
     title: 'AI-Powered PR Review Checklist Generator',
-    description: 'GitHub Action that analyzes PR diffs and auto-generates a QA checklist based on changed files and risk areas.',
+    description:
+      'GitHub Action that analyzes PR diffs and auto-generates a QA checklist based on changed files and risk areas.',
     type: 'code',
     tags: ['GitHub', 'AI', 'PR Review', 'Automation'],
     filename: '.github/workflows/pr-checklist.yml',
@@ -218,32 +235,39 @@ server.<span class="text-yellow-400">resource</span>(
               issue_number: context.issue.number,
               body: checklist,
             });`,
-    impact: 'Every PR gets a tailored QA checklist. Reviewers know exactly what to test. Critical paths never missed.',
+    impact:
+      'Every PR gets a tailored QA checklist. Reviewers know exactly what to test. Critical paths never missed.',
   },
   {
     title: 'AI Test Case Analyzer — Auto Coverage Assessment',
-    description: 'Analyzes existing test suites against requirements and identifies coverage gaps using LLM analysis.',
+    description:
+      'Analyzes existing test suites against requirements and identifies coverage gaps using LLM analysis.',
     type: 'case-study',
     tags: ['AI', 'Coverage', 'Analysis', 'LLM'],
     details: [
       {
         heading: 'How It Works',
-        content: 'Feeds the AI three inputs: (1) user stories / requirements from Jira, (2) existing test cases from code, (3) recent production bugs. The AI maps tests to requirements, identifies untested scenarios, and suggests new test cases ranked by risk.',
+        content:
+          'Feeds the AI three inputs: (1) user stories / requirements from Jira, (2) existing test cases from code, (3) recent production bugs. The AI maps tests to requirements, identifies untested scenarios, and suggests new test cases ranked by risk.',
       },
       {
         heading: 'Output',
-        content: 'Generates a coverage report: requirement → test mapping (with confidence %), gaps highlighted in red, suggested test cases for gaps, and a risk score for each uncovered area based on historical bug data.',
+        content:
+          'Generates a coverage report: requirement → test mapping (with confidence %), gaps highlighted in red, suggested test cases for gaps, and a risk score for each uncovered area based on historical bug data.',
       },
       {
         heading: 'Integration',
-        content: 'Runs weekly as a scheduled CI job. Posts coverage report to Notion and Slack. Team reviews gaps in sprint planning. Suggested tests added to backlog with priority labels.',
+        content:
+          'Runs weekly as a scheduled CI job. Posts coverage report to Notion and Slack. Team reviews gaps in sprint planning. Suggested tests added to backlog with priority labels.',
       },
     ],
-    impact: 'Identified 23 critical untested paths in first run. Coverage visibility went from "we think we\'re good" to data-driven.',
+    impact:
+      'Identified 23 critical untested paths in first run. Coverage visibility went from "we think we\'re good" to data-driven.',
   },
   {
     title: 'Grafana QA Dashboard with Prometheus Metrics',
-    description: 'Real-time QA health dashboards: test execution trends, flaky test tracking, coverage metrics, and release quality scores.',
+    description:
+      'Real-time QA health dashboards: test execution trends, flaky test tracking, coverage metrics, and release quality scores.',
     type: 'code',
     tags: ['Grafana', 'Prometheus', 'Metrics', 'Dashboards'],
     filename: 'monitoring/prometheus-test-metrics.ts',
@@ -284,11 +308,13 @@ server.<span class="text-yellow-400">resource</span>(
 <span class="text-gray-500">// - Flaky tests > 10%  → Slack #qa-alerts</span>
 <span class="text-gray-500">// - Coverage drop > 5%  → Slack #qa-alerts</span>
 <span class="text-gray-500">// - Bug escape > 8%     → PagerDuty escalation</span>`,
-    impact: 'Full observability into QA health. Flaky test count dropped from 15 to 2 after visibility enabled data-driven cleanup.',
+    impact:
+      'Full observability into QA health. Flaky test count dropped from 15 to 2 after visibility enabled data-driven cleanup.',
   },
   {
     title: 'Flaky Test Detection & Auto-Retry Strategy',
-    description: 'Automated system to detect, quarantine, and report flaky tests — with smart retry logic that distinguishes real failures from flakes.',
+    description:
+      'Automated system to detect, quarantine, and report flaky tests — with smart retry logic that distinguishes real failures from flakes.',
     type: 'code',
     tags: ['Flaky Tests', 'CI/CD', 'Reliability'],
     filename: 'utils/flaky-detector.ts',
@@ -326,27 +352,33 @@ server.<span class="text-yellow-400">resource</span>(
     <span class="text-purple-400">return</span> flakyPatterns.<span class="text-yellow-400">some</span>(p => p.<span class="text-yellow-400">test</span>(error.message));
   },
 };`,
-    impact: 'Separated real failures from environmental flakes. CI false positive rate dropped from 18% to 2%.',
+    impact:
+      'Separated real failures from environmental flakes. CI false positive rate dropped from 18% to 2%.',
   },
   {
     title: 'Slack QA Bot — Automated Status Reporting',
-    description: 'Custom Slack bot that posts daily QA summaries, responds to test status queries, and triggers test runs on demand.',
+    description:
+      'Custom Slack bot that posts daily QA summaries, responds to test status queries, and triggers test runs on demand.',
     type: 'case-study',
     tags: ['Slack Bot', 'Automation', 'Reporting'],
     details: [
       {
         heading: 'Daily Summary',
-        content: 'Every morning at 9:00 AM, the bot posts to #qa-status: test suite health (pass/fail/flaky counts), coverage changes, new bugs filed, blocked releases, and upcoming release deadlines. Color-coded: green/yellow/red.',
+        content:
+          'Every morning at 9:00 AM, the bot posts to #qa-status: test suite health (pass/fail/flaky counts), coverage changes, new bugs filed, blocked releases, and upcoming release deadlines. Color-coded: green/yellow/red.',
       },
       {
         heading: 'Interactive Commands',
-        content: '`/qa status` — current test health. `/qa run smoke` — triggers smoke suite on staging. `/qa flaky` — lists top 5 flakiest tests. `/qa release-check` — runs release readiness validation. `/qa coverage [feature]` — shows coverage for a specific feature area.',
+        content:
+          '`/qa status` — current test health. `/qa run smoke` — triggers smoke suite on staging. `/qa flaky` — lists top 5 flakiest tests. `/qa release-check` — runs release readiness validation. `/qa coverage [feature]` — shows coverage for a specific feature area.',
       },
       {
         heading: 'Proactive Alerts',
-        content: 'Bot monitors CI and proactively alerts: "E2E suite has been red for 3 consecutive runs — likely infrastructure issue, not a code bug." Reduces alert fatigue by grouping related failures.',
+        content:
+          'Bot monitors CI and proactively alerts: "E2E suite has been red for 3 consecutive runs — likely infrastructure issue, not a code bug." Reduces alert fatigue by grouping related failures.',
       },
     ],
-    impact: 'Team checks QA health without leaving Slack. On-demand test runs enabled PMs to verify fixes independently.',
+    impact:
+      'Team checks QA health without leaving Slack. On-demand test runs enabled PMs to verify fixes independently.',
   },
 ];

@@ -75,7 +75,8 @@ const think: ShowcaseItem[] = [
   {
     id: 'release-process',
     title: 'Release Process & Quality Gates',
-    subtitle: 'End-to-end release pipeline with AI-powered notes, auto test runs, and readiness gates',
+    subtitle:
+      'End-to-end release pipeline with AI-powered notes, auto test runs, and readiness gates',
     problem:
       'Releases were ad-hoc, manually coordinated via Slack messages. No standardized checklist, no automated quality gates. Teams shipped when they "felt ready" — leading to frequent rollbacks.',
     approach:
@@ -182,7 +183,8 @@ const build: ShowcaseItem[] = [
   {
     id: 'test-framework',
     title: 'Scalable Test Framework Architecture',
-    subtitle: 'Playwright + TypeScript framework built for teams — not just individual contributors',
+    subtitle:
+      'Playwright + TypeScript framework built for teams — not just individual contributors',
     problem:
       'Each project had ad-hoc test scripts — no shared patterns, no reusable utilities, no consistent reporting. New engineers spent weeks understanding the test codebase.',
     approach:
@@ -326,7 +328,8 @@ const build: ShowcaseItem[] = [
   {
     id: 'github-cicd-setup',
     title: 'GitHub CI/CD Setup & Repository Configuration',
-    subtitle: 'Branch protection, CODEOWNERS, conventional commits, and release automation wired together',
+    subtitle:
+      'Branch protection, CODEOWNERS, conventional commits, and release automation wired together',
     problem:
       'New engineers pushed directly to main, PRs merged without reviews, release tags were created manually, and changelogs were copy-pasted by hand. Version discipline was non-existent.',
     approach:
@@ -423,7 +426,8 @@ const build: ShowcaseItem[] = [
   {
     id: 'ai-pr-review',
     title: 'AI-Powered PR Review with CodeRabbit & GitHub Copilot',
-    subtitle: 'AI reviewers that catch bugs, enforce conventions, and generate QA checklists before humans even open the PR',
+    subtitle:
+      'AI reviewers that catch bugs, enforce conventions, and generate QA checklists before humans even open the PR',
     problem:
       'Human reviewers missed edge cases, style inconsistencies slipped through, and QA-specific concerns (missing test coverage, untested error paths) were rarely flagged at review time.',
     approach:
@@ -498,14 +502,15 @@ const build: ShowcaseItem[] = [
       {
         heading: 'Review Patterns That Actually Work',
         content:
-          'AI handles the mechanical layer: style, naming, missing null checks, obvious missing tests. Humans focus on: architectural trade-offs, domain correctness, security implications, and cross-team impact. The separation makes reviews faster and higher quality — reviewers aren\'t fatigued by nitpicks before they reach the important parts.',
+          "AI handles the mechanical layer: style, naming, missing null checks, obvious missing tests. Humans focus on: architectural trade-offs, domain correctness, security implications, and cross-team impact. The separation makes reviews faster and higher quality — reviewers aren't fatigued by nitpicks before they reach the important parts.",
       },
     ],
   },
   {
     id: 'performance-testing',
     title: 'Performance Testing at Scale',
-    subtitle: 'K6 load testing integrated into CI with Grafana dashboards and automatic regression detection',
+    subtitle:
+      'K6 load testing integrated into CI with Grafana dashboards and automatic regression detection',
     problem:
       'No performance testing existed. A critical N+1 query issue only surfaced under real load. Users experienced 5+ second response times during peak hours.',
     approach:
@@ -563,9 +568,10 @@ const innovate: ShowcaseItem[] = [
   {
     id: 'ai-test-generation',
     title: 'AI-Powered Test Generation & PR Review',
-    subtitle: 'Using MCP servers and LLMs to generate tests, review PRs, and enforce best practices',
+    subtitle:
+      'Using MCP servers and LLMs to generate tests, review PRs, and enforce best practices',
     problem:
-      'Writing tests for repetitive CRUD endpoints was slow. PR reviews missed edge cases. New engineers didn\'t know the team\'s testing conventions.',
+      "Writing tests for repetitive CRUD endpoints was slow. PR reviews missed edge cases. New engineers didn't know the team's testing conventions.",
     approach:
       'Built an MCP server that gives AI context about our codebase, testing patterns, and conventions. AI generates test scaffolds, reviews PRs with QA-specific checklists, and enforces best practices via prompt rules.',
     impact:
@@ -645,7 +651,8 @@ server.<span class="text-yellow-400">resource</span>(
   {
     id: 'smart-alerting',
     title: 'Smart Alerting & Observability',
-    subtitle: 'Intelligent alerts that reduce noise and surface real issues — not just "test failed"',
+    subtitle:
+      'Intelligent alerts that reduce noise and surface real issues — not just "test failed"',
     problem:
       'Alert fatigue — the team ignored Slack alerts because 80% were false positives (flaky tests, transient infra issues). Real problems got buried in noise.',
     approach:
@@ -689,9 +696,10 @@ server.<span class="text-yellow-400">resource</span>(
   {
     id: 'bug-capture-triage',
     title: 'Automated Bug Capture & Intelligent Triage',
-    subtitle: 'From bug discovery to developer fix — automated with context-rich reports and smart prioritization',
+    subtitle:
+      'From bug discovery to developer fix — automated with context-rich reports and smart prioritization',
     problem:
-      'Bug reports took 15 minutes to write. Developers couldn\'t reproduce issues. Triage meetings wasted hours debating priority. User-reported bugs fell through cracks.',
+      "Bug reports took 15 minutes to write. Developers couldn't reproduce issues. Triage meetings wasted hours debating priority. User-reported bugs fell through cracks.",
     approach:
       'Integrated BrowserStack + JAM for auto-capture (screen recording, console logs, network requests). Built auto-triage pipeline: bugs classified by severity using historical data, auto-assigned based on feature ownership, support tickets linked to test coverage gaps.',
     impact:

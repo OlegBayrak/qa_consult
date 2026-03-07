@@ -16,9 +16,9 @@ interface CheckRow {
 }
 
 const WORKFLOWS: Record<string, { label: string; icon: string }> = {
-  'CI':              { label: 'Lint → Build → E2E',  icon: '⚙️' },
-  'Lighthouse CI':   { label: 'Lighthouse Scores',    icon: '🔦' },
-  'Deploy Preview':  { label: 'Deploy Preview',       icon: '🚀' },
+  CI: { label: 'Lint → Build → E2E', icon: '⚙️' },
+  'Lighthouse CI': { label: 'Lighthouse Scores', icon: '🔦' },
+  'Deploy Preview': { label: 'Deploy Preview', icon: '🚀' },
 };
 
 function overallStatus(rows: CheckRow[]): RunStatus {
@@ -30,12 +30,12 @@ function overallStatus(rows: CheckRow[]): RunStatus {
 
 function statusColor(s: RunStatus) {
   return {
-    success:     'bg-emerald-500',
-    failure:     'bg-red-500',
+    success: 'bg-emerald-500',
+    failure: 'bg-red-500',
     in_progress: 'bg-amber-400',
-    queued:      'bg-amber-400',
-    skipped:     'bg-slate-400',
-    unknown:     'bg-slate-500',
+    queued: 'bg-amber-400',
+    skipped: 'bg-slate-400',
+    unknown: 'bg-slate-500',
   }[s];
 }
 
@@ -80,16 +80,14 @@ export default function CIStatusPanel() {
       // For each known workflow, find the most recent run on main/master
       const rows: CheckRow[] = Object.entries(WORKFLOWS).map(([wfName, { label, icon }]) => {
         const run = data.workflow_runs?.find(
-          (r: any) =>
-            r.name === wfName &&
-            (r.head_branch === 'main' || r.head_branch === 'master')
+          (r: any) => r.name === wfName && (r.head_branch === 'main' || r.head_branch === 'master')
         );
         return {
           name: label,
           icon,
           status: run
             ? run.status === 'completed'
-              ? run.conclusion ?? 'unknown'
+              ? (run.conclusion ?? 'unknown')
               : run.status
             : 'unknown',
           conclusion: run?.conclusion ?? null,
@@ -146,14 +144,26 @@ export default function CIStatusPanel() {
               className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${statusColor(overall)}`}
             />
           )}
-          <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${statusColor(overall)}`} />
+          <span
+            className={`relative inline-flex rounded-full h-2.5 w-2.5 ${statusColor(overall)}`}
+          />
         </span>
         <span className="font-mono text-xs tracking-wide">
-          {loading ? 'CI Status' : overall === 'success' ? 'All Passing' : overall === 'failure' ? 'Check Failed' : overall === 'in_progress' ? 'Running…' : 'CI Status'}
+          {loading
+            ? 'CI Status'
+            : overall === 'success'
+              ? 'All Passing'
+              : overall === 'failure'
+                ? 'Check Failed'
+                : overall === 'in_progress'
+                  ? 'Running…'
+                  : 'CI Status'}
         </span>
         <svg
           className={`w-3.5 h-3.5 opacity-60 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
-          fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
         >
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
@@ -161,19 +171,22 @@ export default function CIStatusPanel() {
 
       {/* Popup panel */}
       {open && (
-        <div className={[
-          'absolute bottom-12 left-0 w-80',
-          'rounded-2xl border border-slate-200 dark:border-white/10',
-          'bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl',
-          'shadow-2xl shadow-black/20',
-          'transition-all duration-200',
-        ].join(' ')}>
-
+        <div
+          className={[
+            'absolute bottom-12 left-0 w-80',
+            'rounded-2xl border border-slate-200 dark:border-white/10',
+            'bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl',
+            'shadow-2xl shadow-black/20',
+            'transition-all duration-200',
+          ].join(' ')}
+        >
           {/* Header */}
           <div className="px-4 py-3 border-b border-slate-100 dark:border-white/5 flex items-center justify-between">
             <div>
               <p className="text-xs font-mono text-blue-500 mb-0.5">automation status</p>
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white">CI / Quality Gates</h3>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+                CI / Quality Gates
+              </h3>
             </div>
             <a
               href={`https://github.com/${REPO}/actions`}
@@ -209,8 +222,12 @@ export default function CIStatusPanel() {
                   <li key={c.name} className="flex items-center gap-3 py-2.5 px-1">
                     <span className="text-base leading-none">{c.icon}</span>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-slate-800 dark:text-slate-100 truncate">{c.name}</p>
-                      <p className="text-xs text-slate-400 font-mono">{relativeTime(c.updatedAt)}</p>
+                      <p className="text-sm font-medium text-slate-800 dark:text-slate-100 truncate">
+                        {c.name}
+                      </p>
+                      <p className="text-xs text-slate-400 font-mono">
+                        {relativeTime(c.updatedAt)}
+                      </p>
                     </div>
                     <a
                       href={c.runUrl ?? `https://github.com/${REPO}/actions`}
@@ -220,10 +237,13 @@ export default function CIStatusPanel() {
                       className={[
                         'flex-shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold font-mono',
                         'transition-opacity hover:opacity-80',
-                        c.status === 'success'     ? 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400' :
-                        c.status === 'failure'     ? 'bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-400' :
-                        c.status === 'in_progress' ? 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400' :
-                                                     'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400',
+                        c.status === 'success'
+                          ? 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400'
+                          : c.status === 'failure'
+                            ? 'bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-400'
+                            : c.status === 'in_progress'
+                              ? 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400'
+                              : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400',
                       ].join(' ')}
                     >
                       {c.status === 'in_progress' && (

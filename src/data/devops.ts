@@ -1,32 +1,39 @@
 export const devops = [
   {
     title: 'Release Pipeline Process with AI-Powered Release Notes & Auto Test Runs',
-    description: 'Full release pipeline: auto-generates release notes from GH changes via AI, notifies per-stage deployment, creates test runs assigned to team, and tracks env-specific testing.',
+    description:
+      'Full release pipeline: auto-generates release notes from GH changes via AI, notifies per-stage deployment, creates test runs assigned to team, and tracks env-specific testing.',
     type: 'case-study',
     tags: ['Release', 'AI', 'Pipeline', 'TestOps', 'Alerting'],
     details: [
       {
         heading: 'Pipeline Stages & Alerts',
-        content: 'Each deployment stage (Dev → QA → Staging → Production) triggers a Slack notification with a pre-filled message: release version, environment URL, deployment status, and estimated rollback window. Teams know exactly when and where to test.',
+        content:
+          'Each deployment stage (Dev → QA → Staging → Production) triggers a Slack notification with a pre-filled message: release version, environment URL, deployment status, and estimated rollback window. Teams know exactly when and where to test.',
       },
       {
         heading: 'AI-Generated Release Notes',
-        content: 'A GitHub Action collects all merged PRs since last release, sends the diff to an LLM (OpenAI/Claude), and generates: (1) User-facing changelog grouped by feature/fix/chore, (2) QA-facing impact analysis highlighting risky changes, (3) Auto-tagged areas needing regression testing.',
+        content:
+          'A GitHub Action collects all merged PRs since last release, sends the diff to an LLM (OpenAI/Claude), and generates: (1) User-facing changelog grouped by feature/fix/chore, (2) QA-facing impact analysis highlighting risky changes, (3) Auto-tagged areas needing regression testing.',
       },
       {
         heading: 'Auto Test Run Creation',
-        content: 'On QA environment deployment, the system auto-creates test runs in TestRail/Allure TestOps: assigns test cases to team members based on feature ownership, sets priority based on change risk analysis, and includes the release notes + environment URLs in the run description. Team members get Slack DMs with their assigned test cases.',
+        content:
+          'On QA environment deployment, the system auto-creates test runs in TestRail/Allure TestOps: assigns test cases to team members based on feature ownership, sets priority based on change risk analysis, and includes the release notes + environment URLs in the run description. Team members get Slack DMs with their assigned test cases.',
       },
       {
         heading: 'Release Readiness Gate',
-        content: 'Before production deploy: automated checks verify all test runs completed, pass rate > 95%, no P0/P1 bugs open, performance baseline met, and security scan passed. If any gate fails, deployment is blocked and the release manager gets a detailed report of what\'s missing.',
+        content:
+          "Before production deploy: automated checks verify all test runs completed, pass rate > 95%, no P0/P1 bugs open, performance baseline met, and security scan passed. If any gate fails, deployment is blocked and the release manager gets a detailed report of what's missing.",
       },
     ],
-    impact: 'Release cycle shortened from 5 days to 2 days. Zero manual release note writing. 100% test assignment coverage — nothing falls through cracks.',
+    impact:
+      'Release cycle shortened from 5 days to 2 days. Zero manual release note writing. 100% test assignment coverage — nothing falls through cracks.',
   },
   {
     title: 'GitHub Actions CI/CD Pipeline for E2E Tests',
-    description: 'Full CI/CD pipeline running Playwright E2E tests on every PR with parallel execution, caching, and Allure reporting.',
+    description:
+      'Full CI/CD pipeline running Playwright E2E tests on every PR with parallel execution, caching, and Allure reporting.',
     type: 'code',
     tags: ['GitHub Actions', 'CI/CD', 'Playwright'],
     filename: '.github/workflows/e2e-tests.yml',
@@ -62,11 +69,13 @@ export const devops = [
         <span class="text-purple-400">with</span>:
           <span class="text-purple-400">name</span>: <span class="text-green-400">test-results-\${{ matrix.shard }}</span>
           <span class="text-purple-400">path</span>: <span class="text-green-400">test-results/</span>`,
-    impact: 'Tests run in 4 parallel shards — total CI time reduced from 25min to 7min. Every PR gets quality gates.',
+    impact:
+      'Tests run in 4 parallel shards — total CI time reduced from 25min to 7min. Every PR gets quality gates.',
   },
   {
     title: 'Docker Containerized Test Environment',
-    description: 'Docker Compose setup for spinning up isolated test environments with app, database, and test runner.',
+    description:
+      'Docker Compose setup for spinning up isolated test environments with app, database, and test runner.',
     type: 'code',
     tags: ['Docker', 'Infrastructure', 'PostgreSQL'],
     filename: 'docker-compose.test.yml',
@@ -107,32 +116,39 @@ export const devops = [
       - <span class="text-green-400">app</span>
     <span class="text-purple-400">volumes</span>:
       - <span class="text-green-400">./test-results:/app/test-results</span>`,
-    impact: 'One command to spin up a full test environment. No more "works on my machine" — consistent across all engineers.',
+    impact:
+      'One command to spin up a full test environment. No more "works on my machine" — consistent across all engineers.',
   },
   {
     title: 'BetterStack + Grafana Alerting Pipeline',
-    description: 'Monitoring and alerting setup: BetterStack for uptime, Prometheus for metrics, Grafana for dashboards, PagerDuty for on-call.',
+    description:
+      'Monitoring and alerting setup: BetterStack for uptime, Prometheus for metrics, Grafana for dashboards, PagerDuty for on-call.',
     type: 'case-study',
     tags: ['BetterStack', 'Grafana', 'Prometheus', 'Alerting'],
     details: [
       {
         heading: 'Architecture',
-        content: 'BetterStack monitors endpoint health (HTTP checks every 30s). Prometheus scrapes app metrics (response times, error rates, queue depth). Grafana visualizes both sources in unified dashboards. Critical alerts route to PagerDuty → Slack → Email escalation chain.',
+        content:
+          'BetterStack monitors endpoint health (HTTP checks every 30s). Prometheus scrapes app metrics (response times, error rates, queue depth). Grafana visualizes both sources in unified dashboards. Critical alerts route to PagerDuty → Slack → Email escalation chain.',
       },
       {
         heading: 'Alert Rules',
-        content: 'P0: Service down > 1min → PagerDuty + Slack. P1: Error rate > 5% for 5min → Slack #incidents. P2: Response time p95 > 2s for 10min → Slack #monitoring. P3: Test flakiness > 10% → Daily digest to QA channel.',
+        content:
+          'P0: Service down > 1min → PagerDuty + Slack. P1: Error rate > 5% for 5min → Slack #incidents. P2: Response time p95 > 2s for 10min → Slack #monitoring. P3: Test flakiness > 10% → Daily digest to QA channel.',
       },
       {
         heading: 'Dashboards',
-        content: 'Four key dashboards: (1) Service Health — uptime, latency, error rates; (2) Test Health — pass rates, flaky tests, execution trends; (3) Release Quality — bug escape rate, rollback frequency; (4) Team Metrics — coverage %, automation velocity.',
+        content:
+          'Four key dashboards: (1) Service Health — uptime, latency, error rates; (2) Test Health — pass rates, flaky tests, execution trends; (3) Release Quality — bug escape rate, rollback frequency; (4) Team Metrics — coverage %, automation velocity.',
       },
     ],
-    impact: 'Mean time to detection (MTTD) dropped from 30min to 2min. Zero undetected production incidents over 8 months.',
+    impact:
+      'Mean time to detection (MTTD) dropped from 30min to 2min. Zero undetected production incidents over 8 months.',
   },
   {
     title: 'Secret Vault & Environment Variable Management',
-    description: 'Secure secrets management using GitHub Secrets, HashiCorp Vault, and environment-specific configs.',
+    description:
+      'Secure secrets management using GitHub Secrets, HashiCorp Vault, and environment-specific configs.',
     type: 'code',
     tags: ['Security', 'Vault', 'GitHub Secrets'],
     filename: 'config/env-manager.ts',
@@ -171,11 +187,13 @@ export const devops = [
     slackWebhook: process.env.<span class="text-white">SLACK_WEBHOOK</span> || <span class="text-green-400">''</span>,
   };
 }`,
-    impact: 'Zero secret leaks. Environment configs validated at startup — no more runtime crashes from missing variables.',
+    impact:
+      'Zero secret leaks. Environment configs validated at startup — no more runtime crashes from missing variables.',
   },
   {
     title: 'PR Quality Gates Workflow',
-    description: 'Automated PR checks: lint, type check, unit tests, E2E smoke tests — all must pass before merge.',
+    description:
+      'Automated PR checks: lint, type check, unit tests, E2E smoke tests — all must pass before merge.',
     type: 'code',
     tags: ['GitHub Actions', 'Quality Gates', 'PR Checks'],
     filename: '.github/workflows/pr-checks.yml',
@@ -213,7 +231,8 @@ export const devops = [
       - <span class="text-purple-400">run</span>: <span class="text-green-400">npm ci</span>
       - <span class="text-purple-400">run</span>: <span class="text-green-400">npx playwright install chromium</span>
       - <span class="text-purple-400">run</span>: <span class="text-green-400">npx playwright test --grep @smoke</span>`,
-    impact: 'No PR merges without passing all gates. Caught 85% of issues before code review even started.',
+    impact:
+      'No PR merges without passing all gates. Caught 85% of issues before code review even started.',
   },
   {
     title: 'Test Environment Provisioning',
@@ -223,22 +242,27 @@ export const devops = [
     details: [
       {
         heading: 'Approach',
-        content: 'Every PR gets an ephemeral preview environment deployed automatically. Uses Docker + cloud provider (Vercel/Railway) to spin up isolated instances with their own database seeded with test data.',
+        content:
+          'Every PR gets an ephemeral preview environment deployed automatically. Uses Docker + cloud provider (Vercel/Railway) to spin up isolated instances with their own database seeded with test data.',
       },
       {
         heading: 'Lifecycle',
-        content: 'PR opened → environment provisioned (2-3 min) → URL posted as PR comment → QA tests against it → PR merged/closed → environment destroyed. Cost-effective: environments only live while PR is open.',
+        content:
+          'PR opened → environment provisioned (2-3 min) → URL posted as PR comment → QA tests against it → PR merged/closed → environment destroyed. Cost-effective: environments only live while PR is open.',
       },
       {
         heading: 'Benefits',
-        content: 'QA can test features in isolation without blocking staging. Multiple features tested simultaneously. Exact reproduction of bugs with specific branch code.',
+        content:
+          'QA can test features in isolation without blocking staging. Multiple features tested simultaneously. Exact reproduction of bugs with specific branch code.',
       },
     ],
-    impact: 'Eliminated staging bottleneck. QA throughput increased 3x — parallel testing of multiple features.',
+    impact:
+      'Eliminated staging bottleneck. QA throughput increased 3x — parallel testing of multiple features.',
   },
   {
     title: 'Allure Report Integration in CI',
-    description: 'Automated Allure test report generation and publishing as GitHub Pages artifact on every test run.',
+    description:
+      'Automated Allure test report generation and publishing as GitHub Pages artifact on every test run.',
     type: 'code',
     tags: ['Allure', 'Reporting', 'CI/CD'],
     filename: '.github/workflows/allure-report.yml',
@@ -271,6 +295,7 @@ export const devops = [
         <span class="text-purple-400">with</span>:
           <span class="text-purple-400">github_token</span>: <span class="text-cyan-400">\${{ secrets.GITHUB_TOKEN }}</span>
           <span class="text-purple-400">publish_dir</span>: <span class="text-green-400">allure-history</span>`,
-    impact: 'Every test run produces a beautiful, browsable Allure report. Historical trends show test health over time.',
+    impact:
+      'Every test run produces a beautiful, browsable Allure report. Historical trends show test health over time.',
   },
 ];
