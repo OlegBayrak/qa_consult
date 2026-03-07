@@ -50,7 +50,6 @@
       } catch {}
     }
 
-    // eslint-disable-next-line no-unused-vars
     function isDark() {
       const stored = getStored();
       if (stored === DARK) return true;
@@ -65,7 +64,7 @@
     }
 
     document.getElementById('theme-toggle')?.addEventListener('click', () => {
-      applyTheme(!document.documentElement.classList.contains('dark'));
+      applyTheme(!isDark());
     });
   })();
 </script>
