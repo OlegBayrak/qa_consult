@@ -1,4 +1,6 @@
 ---
+import CIStatusPanel from '../components/CIStatusPanel';
+
 interface Props {
   title: string;
   description?: string;
@@ -40,6 +42,7 @@ const { title, description = 'Oleh Bairak — QA Tech Lead & Test Infrastructure
   </head>
   <body>
     <slot />
+    <CIStatusPanel client:load />
 
     <!-- Scroll reveal observer -->
     <script>
