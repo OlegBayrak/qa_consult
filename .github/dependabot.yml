@@ -5,26 +5,26 @@ updates:
     schedule:
       interval: weekly
       day: monday
-      time: "09:00"
+      time: '09:00'
     open-pull-requests-limit: 5
     groups:
       astro:
         patterns:
-          - "astro"
-          - "@astrojs/*"
+          - 'astro'
+          - '@astrojs/*'
       playwright:
         patterns:
-          - "@playwright/*"
-          - "@axe-core/*"
+          - '@playwright/*'
+          - '@axe-core/*'
       linting:
         patterns:
-          - "eslint*"
-          - "@typescript-eslint/*"
-          - "prettier*"
+          - 'eslint*'
+          - '@typescript-eslint/*'
+          - 'prettier*'
 
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
       day: monday
-      time: "09:00"
+      time: '09:00'

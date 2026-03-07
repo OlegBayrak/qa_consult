@@ -4,3 +4,5 @@ node_modules/
 playwright-report/
 test-results/
 public/
+# prettier-plugin-astro crashes on HTML comments inside JSX map expressions
+src/components/Experience.astro

@@ -2,6 +2,6 @@
   "name": "qaconsult",
   "compatibility_date": "2026-02-18",
   "assets": {
-    "directory": "./dist"
-  }
+    "directory": "./dist",
+  },
 }
