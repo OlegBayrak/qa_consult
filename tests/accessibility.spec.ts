@@ -6,6 +6,7 @@ const BASE = '/qa_consult';
 test.describe('Accessibility', () => {
   test('home page has no critical axe violations', async ({ page }) => {
     await page.goto(BASE);
+    await page.waitForTimeout(700); // wait for CSS animations to complete
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
       .analyze();
@@ -14,6 +15,7 @@ test.describe('Accessibility', () => {
 
   test('showcase page has no critical axe violations', async ({ page }) => {
     await page.goto(`${BASE}/showcase`);
+    await page.waitForTimeout(700); // wait for CSS animations to complete
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
       .analyze();

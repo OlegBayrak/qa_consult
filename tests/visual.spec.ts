@@ -62,7 +62,7 @@ test.describe('Responsive layout', () => {
     for (const vp of viewports) {
       await page.setViewportSize({ width: vp.width, height: vp.height });
       await page.goto(BASE);
-      await expect(page.getByText('12+')).toBeVisible();
+      await expect(page.getByText('12+', { exact: true })).toBeVisible();
       await expect(page.getByText('Years Experience')).toBeVisible();
     }
   });
