@@ -8,6 +8,7 @@ jobs:
   deploy-preview:
     name: Deploy to Cloudflare Workers (Preview)
     runs-on: ubuntu-latest
+    continue-on-error: true
     permissions:
       pull-requests: write
 
