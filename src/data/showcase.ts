@@ -326,6 +326,110 @@ const build: ShowcaseItem[] = [
     ],
   },
   {
+    id: 'auto-test-ids',
+    title: 'Automatic data-testid Injection via Babel Plugin',
+    subtitle: 'Zero-effort test IDs for every React component — generated from a naming policy, never written by hand',
+    problem:
+      'Developers forgot to add `data-testid` attributes, used inconsistent naming (some `kebab-case`, some `camelCase`, some missing entirely), and QA had to chase them down per component. Selectors broke silently when someone renamed a component.',
+    approach:
+      'Wrote a Babel plugin that runs at build time, visits every JSX element, and injects `data-testid` automatically based on a deterministic naming policy: `ComponentName__element-role`. Added an ESLint rule to forbid manual `data-testid` attributes — the plugin is the single source of truth.',
+    impact:
+      'Zero manual `data-testid` maintenance. 100% selector coverage on all interactive elements from day one. Naming consistent across every component, every team, every project.',
+    tags: ['Babel', 'React', 'TypeScript', 'DX'],
+    sections: [
+      {
+        heading: 'Naming Policy',
+        code: `<span class="text-gray-500">// Policy: ComponentName__semantic-role</span>
+<span class="text-gray-500">// Derived from: file name + element type + optional aria role</span>
+
+<span class="text-gray-500">// Input (what the developer writes):</span>
+<span class="text-purple-400">export function</span> <span class="text-cyan-400">LoginForm</span>() {
+  <span class="text-purple-400">return</span> (
+    &lt;<span class="text-cyan-400">form</span>&gt;
+      &lt;<span class="text-cyan-400">input</span> type=<span class="text-green-400">"email"</span> /&gt;
+      &lt;<span class="text-cyan-400">input</span> type=<span class="text-green-400">"password"</span> /&gt;
+      &lt;<span class="text-cyan-400">button</span> type=<span class="text-green-400">"submit"</span>&gt;Sign in&lt;/<span class="text-cyan-400">button</span>&gt;
+      &lt;<span class="text-cyan-400">span</span> className=<span class="text-green-400">"error"</span>&gt;...&lt;/<span class="text-cyan-400">span</span>&gt;
+    &lt;/<span class="text-cyan-400">form</span>&gt;
+  );
+}
+
+<span class="text-gray-500">// Output (what the plugin generates):</span>
+&lt;<span class="text-cyan-400">form</span>       data-testid=<span class="text-green-400">"LoginForm__form"</span>&gt;
+&lt;<span class="text-cyan-400">input</span>      data-testid=<span class="text-green-400">"LoginForm__input-email"</span>&gt;
+&lt;<span class="text-cyan-400">input</span>      data-testid=<span class="text-green-400">"LoginForm__input-password"</span>&gt;
+&lt;<span class="text-cyan-400">button</span>     data-testid=<span class="text-green-400">"LoginForm__button-submit"</span>&gt;
+&lt;<span class="text-cyan-400">span</span>       data-testid=<span class="text-green-400">"LoginForm__span-error"</span>&gt;`,
+        filename: 'naming-policy.md',
+      },
+      {
+        heading: 'Babel Plugin Implementation',
+        code: `<span class="text-gray-500">// babel-plugin-auto-testid.js</span>
+<span class="text-purple-400">const</span> { <span class="text-cyan-400">parse</span> } = <span class="text-purple-400">require</span>(<span class="text-green-400">'path'</span>);
+
+<span class="text-purple-400">module.exports</span> = <span class="text-purple-400">function</span> ({ types: t }) {
+  <span class="text-purple-400">return</span> {
+    visitor: {
+      <span class="text-yellow-400">JSXOpeningElement</span>(path, state) {
+        <span class="text-gray-500">// Skip if already has data-testid</span>
+        <span class="text-purple-400">const</span> hasTestId = path.node.attributes.<span class="text-yellow-400">some</span>(
+          a => t.<span class="text-yellow-400">isJSXAttribute</span>(a) &&
+               a.name.name === <span class="text-green-400">'data-testid'</span>
+        );
+        <span class="text-purple-400">if</span> (hasTestId) <span class="text-purple-400">return</span>;
+
+        <span class="text-gray-500">// Derive component name from filename</span>
+        <span class="text-purple-400">const</span> filename = state.file.opts.filename || <span class="text-green-400">''</span>;
+        <span class="text-purple-400">const</span> component = <span class="text-yellow-400">parse</span>(filename).name; <span class="text-gray-500">// "LoginForm"</span>
+
+        <span class="text-gray-500">// Derive element role from tag + props</span>
+        <span class="text-purple-400">const</span> tag  = path.node.name.name;         <span class="text-gray-500">// "input"</span>
+        <span class="text-purple-400">const</span> type = <span class="text-yellow-400">getAttr</span>(path, <span class="text-green-400">'type'</span>);        <span class="text-gray-500">// "email"</span>
+        <span class="text-purple-400">const</span> cls  = <span class="text-yellow-400">getAttr</span>(path, <span class="text-green-400">'className'</span>);   <span class="text-gray-500">// "error"</span>
+
+        <span class="text-purple-400">const</span> role = [tag, type || cls]
+          .<span class="text-yellow-400">filter</span>(Boolean).<span class="text-yellow-400">join</span>(<span class="text-green-400">'-'</span>);            <span class="text-gray-500">// "input-email"</span>
+
+        <span class="text-purple-400">const</span> testId = <span class="text-green-400">\`\${component}__\${role}\`</span>;    <span class="text-gray-500">// "LoginForm__input-email"</span>
+
+        path.node.attributes.<span class="text-yellow-400">push</span>(
+          t.<span class="text-yellow-400">jsxAttribute</span>(
+            t.<span class="text-yellow-400">jsxIdentifier</span>(<span class="text-green-400">'data-testid'</span>),
+            t.<span class="text-yellow-400">stringLiteral</span>(testId)
+          )
+        );
+      },
+    },
+  };
+};`,
+        filename: 'babel-plugin-auto-testid.js',
+      },
+      {
+        heading: 'Wiring It In — babel.config.js + ESLint Guard',
+        code: `<span class="text-gray-500">// babel.config.js — plugin only runs outside production</span>
+<span class="text-purple-400">module.exports</span> = {
+  presets: [<span class="text-green-400">'@babel/preset-react'</span>, <span class="text-green-400">'@babel/preset-typescript'</span>],
+  plugins: [
+    ...(process.env.<span class="text-white">NODE_ENV</span> !== <span class="text-green-400">'production'</span>
+      ? [<span class="text-green-400">'./babel-plugin-auto-testid'</span>]   <span class="text-gray-500">// Dev + CI only</span>
+      : []),
+  ],
+};
+
+<span class="text-gray-500">// .eslintrc — forbid manual data-testid to keep plugin as single source of truth</span>
+{
+  <span class="text-green-400">"rules"</span>: {
+    <span class="text-green-400">"no-restricted-syntax"</span>: [<span class="text-green-400">"error"</span>, {
+      <span class="text-green-400">"selector"</span>: <span class="text-green-400">"JSXAttribute[name.name='data-testid']"</span>,
+      <span class="text-green-400">"message"</span>: <span class="text-green-400">"Don't add data-testid manually — the Babel plugin handles this."</span>
+    }]
+  }
+}`,
+        filename: 'babel.config.js + .eslintrc',
+      },
+    ],
+  },
+  {
     id: 'github-cicd-setup',
     title: 'GitHub CI/CD Setup & Repository Configuration',
     subtitle:
