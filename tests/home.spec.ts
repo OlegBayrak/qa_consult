@@ -52,7 +52,7 @@ test.describe('Home page', () => {
   });
 
   test('hero stats display years of experience', async ({ page }) => {
-    await expect(page.getByText('12+')).toBeVisible();
+    await expect(page.getByText('12+', { exact: true })).toBeVisible();
     await expect(page.getByText('Years Experience')).toBeVisible();
   });
 
