@@ -328,7 +328,8 @@ const build: ShowcaseItem[] = [
   {
     id: 'auto-test-ids',
     title: 'Automatic data-testid Injection via Babel Plugin',
-    subtitle: 'Zero-effort test IDs for every React component — generated from a naming policy, never written by hand',
+    subtitle:
+      'Zero-effort test IDs for every React component — generated from a naming policy, never written by hand',
     problem:
       'Developers forgot to add `data-testid` attributes, used inconsistent naming (some `kebab-case`, some `camelCase`, some missing entirely), and QA had to chase them down per component. Selectors broke silently when someone renamed a component.',
     approach:

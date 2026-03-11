@@ -151,7 +151,7 @@ Ukrainian: Native
 `;
 
 export const POST: APIRoute = async ({ request, locals }) => {
-  const apiKey = (locals.runtime?.env?.GROQ_API_KEY) ?? import.meta.env.GROQ_API_KEY;
+  const apiKey = locals.runtime?.env?.GROQ_API_KEY ?? import.meta.env.GROQ_API_KEY;
 
   if (!apiKey) {
     return new Response(JSON.stringify({ error: 'API key not configured' }), {

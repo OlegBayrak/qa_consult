@@ -14,6 +14,13 @@ export default [
     },
   },
   {
-    ignores: ['dist/', 'node_modules/', 'playwright-report/', 'test-results/', '.astro/'],
+    ignores: [
+      'dist/',
+      'node_modules/',
+      'playwright-report/',
+      'test-results/',
+      '.astro/',
+      'demo-server/',
+    ],
   },
 ];

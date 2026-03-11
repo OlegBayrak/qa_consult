@@ -96,13 +96,27 @@ export default function CVChat({ apiBase }: { apiBase: string }) {
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full gap-6 text-center py-8">
             <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center">
-              <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+              <svg
+                className="w-8 h-8 text-accent"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                />
               </svg>
             </div>
             <div>
-              <p className="text-slate-700 dark:text-gray-300 font-medium mb-1">Ask me anything about Oleh's CV</p>
-              <p className="text-sm text-slate-500 dark:text-gray-500">Experience, skills, projects, and more</p>
+              <p className="text-slate-700 dark:text-gray-300 font-medium mb-1">
+                Ask me anything about Oleh's CV
+              </p>
+              <p className="text-sm text-slate-500 dark:text-gray-500">
+                Experience, skills, projects, and more
+              </p>
             </div>
             <div className="flex flex-wrap gap-2 justify-center max-w-lg">
               {SUGGESTED_QUESTIONS.map((q) => (
@@ -145,7 +159,11 @@ export default function CVChat({ apiBase }: { apiBase: string }) {
               </div>
               {msg.role === 'user' && (
                 <div className="w-8 h-8 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center flex-shrink-0 mt-1">
-                  <svg className="w-4 h-4 text-slate-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-4 h-4 text-slate-500 dark:text-gray-400"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
                   </svg>
                 </div>
@@ -182,7 +200,12 @@ export default function CVChat({ apiBase }: { apiBase: string }) {
             aria-label="Send"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+              />
             </svg>
           </button>
         </div>

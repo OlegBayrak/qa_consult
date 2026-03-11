@@ -7,7 +7,10 @@ const origin = Astro.url.origin;
 const apiBase = origin + base;
 ---
 
-<Layout title="Ask Oleh's CV — AI Chat Agent" description="Chat with an AI agent trained on Oleh Bairak's CV. Ask about his QA experience, skills, and career.">
+<Layout
+  title="Ask Oleh's CV — AI Chat Agent"
+  description="Chat with an AI agent trained on Oleh Bairak's CV. Ask about his QA experience, skills, and career."
+>
   <div class="min-h-screen bg-white dark:bg-primary pt-20 pb-12">
     <!-- Header -->
     <div class="max-w-3xl mx-auto px-6">
@@ -17,14 +20,20 @@ const apiBase = origin + base;
           class="inline-flex items-center gap-2 text-sm text-slate-500 dark:text-gray-400 hover:text-accent transition-colors"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7"></path>
           </svg>
           Back to portfolio
         </a>
       </div>
 
       <div class="text-center py-8">
-        <div class="inline-flex items-center gap-2 bg-accent/10 text-accent text-xs font-semibold px-3 py-1.5 rounded-full mb-4">
+        <div
+          class="inline-flex items-center gap-2 bg-accent/10 text-accent text-xs font-semibold px-3 py-1.5 rounded-full mb-4"
+        >
           <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
           AI-Powered
         </div>
@@ -32,12 +41,15 @@ const apiBase = origin + base;
           Ask <span class="text-accent">Oleh's CV</span>
         </h1>
         <p class="text-slate-500 dark:text-gray-400 max-w-md mx-auto text-sm leading-relaxed">
-          Chat with an AI agent that knows everything about Oleh Bairak's professional background, skills, and experience.
+          Chat with an AI agent that knows everything about Oleh Bairak's professional background,
+          skills, and experience.
         </p>
       </div>
 
       <!-- Chat card -->
-      <div class="bg-white dark:bg-surface border border-slate-200 dark:border-white/5 rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-black/20 overflow-hidden">
+      <div
+        class="bg-white dark:bg-surface border border-slate-200 dark:border-white/5 rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-black/20 overflow-hidden"
+      >
         <CVChat client:load apiBase={apiBase} />
       </div>
 
@@ -49,9 +61,11 @@ const apiBase = origin + base;
 
   <script is:inline>
     // Apply saved theme immediately
-    (function() {
+    (function () {
       var t = localStorage.getItem('theme');
-      var d = t === 'dark' || (t !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      var d =
+        t === 'dark' ||
+        (t !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
       if (d) document.documentElement.classList.add('dark');
     })();
   </script>
