@@ -15,8 +15,8 @@ interface CheckRow {
   updatedAt: string | null;
 }
 
-const WORKFLOWS: Record<string, { label: string; icon: string }> = {
-  CI: { label: 'Lint → Build → E2E', icon: '⚙️' },
+const WORKFLOWS: Record<string, { label: string; icon: string; mainOnly?: boolean }> = {
+  CI: { label: 'Lint → Build → E2E', icon: '⚙️', mainOnly: true },
   'Lighthouse CI': { label: 'Lighthouse Scores', icon: '🔦' },
   'Deploy Preview': { label: 'Deploy Preview', icon: '🚀' },
 };
@@ -78,10 +78,12 @@ export default function CIStatusPanel() {
       const data = await res.json();
 
       // For each known workflow, find the most recent run on main/master
-      const rows: CheckRow[] = Object.entries(WORKFLOWS).map(([wfName, { label, icon }]) => {
-        const run = data.workflow_runs?.find(
-          (r: any) => r.name === wfName && (r.head_branch === 'main' || r.head_branch === 'master')
-        );
+      const rows: CheckRow[] = Object.entries(WORKFLOWS).map(([wfName, { label, icon, mainOnly }]) => {
+        const run = data.workflow_runs?.find((r: any) => {
+          if (r.name !== wfName) return false;
+          if (mainOnly) return r.head_branch === 'main' || r.head_branch === 'master';
+          return true;
+        });
         return {
           name: label,
           icon,
