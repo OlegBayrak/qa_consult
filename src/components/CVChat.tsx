@@ -67,7 +67,7 @@ export default function CVChat({ apiBase }: { apiBase: string }) {
           return updated;
         });
       }
-    } catch (err) {
+    } catch {
       setMessages((prev) => {
         const updated = [...prev];
         updated[updated.length - 1] = {
