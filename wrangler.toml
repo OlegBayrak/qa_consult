@@ -1,7 +1,9 @@
-# Cloudflare Pages / Workers — static site deploy
+# Cloudflare Workers — SSR deploy
 # Build runs first (npm run build), then wrangler deploys dist/
 name = "qa-consult"
+main = "dist/_worker.js/index.js"
 compatibility_date = "2026-02-18"
 
 [assets]
 directory = "./dist"
+binding = "ASSETS"
