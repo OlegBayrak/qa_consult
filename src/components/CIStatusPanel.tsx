@@ -67,43 +67,49 @@ export default function CIStatusPanel() {
   const [open, setOpen] = useState(false);
   const [checks, setChecks] = useState<CheckRow[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
 
   async function fetchStatus() {
     setLoading(true);
-    setError(false);
+    setError(null);
     try {
       const res = await fetch(GH_RUNS, {
         headers: { Accept: 'application/vnd.github+json' },
       });
+      if (res.status === 403 || res.status === 429) {
+        setError('rate_limit');
+        return;
+      }
       if (!res.ok) throw new Error('GitHub API error');
       const data = await res.json();
 
       // For each known workflow, find the most recent run on main/master
-      const rows: CheckRow[] = Object.entries(WORKFLOWS).map(([wfName, { label, icon, mainOnly }]) => {
-        const run = data.workflow_runs?.find((r: any) => {
-          if (r.name !== wfName) return false;
-          if (mainOnly) return r.head_branch === 'main' || r.head_branch === 'master';
-          return true;
-        });
-        return {
-          name: label,
-          icon,
-          status: run
-            ? run.status === 'completed'
-              ? (run.conclusion ?? 'unknown')
-              : run.status
-            : 'unknown',
-          conclusion: run?.conclusion ?? null,
-          runUrl: run?.html_url ?? `https://github.com/${REPO}/actions`,
-          updatedAt: run?.updated_at ?? null,
-        } as CheckRow;
-      });
+      const rows: CheckRow[] = Object.entries(WORKFLOWS).map(
+        ([wfName, { label, icon, mainOnly }]) => {
+          const run = data.workflow_runs?.find((r: any) => {
+            if (r.name !== wfName) return false;
+            if (mainOnly) return r.head_branch === 'main' || r.head_branch === 'master';
+            return true;
+          });
+          return {
+            name: label,
+            icon,
+            status: run
+              ? run.status === 'completed'
+                ? (run.conclusion ?? 'unknown')
+                : run.status
+              : 'unknown',
+            conclusion: run?.conclusion ?? null,
+            runUrl: run?.html_url ?? `https://github.com/${REPO}/actions`,
+            updatedAt: run?.updated_at ?? null,
+          } as CheckRow;
+        }
+      );
 
       setChecks(rows);
     } catch {
-      setError(true);
+      setError('api_error');
     } finally {
       setLoading(false);
     }
@@ -127,7 +133,7 @@ export default function CIStatusPanel() {
     return () => document.removeEventListener('mousedown', handler);
   }, [open]);
 
-  const overall = loading ? 'unknown' : error ? 'failure' : overallStatus(checks);
+  const overall = loading ? 'unknown' : error ? 'unknown' : overallStatus(checks);
   const isPulsing = overall === 'in_progress';
 
   return (
@@ -213,13 +219,22 @@ export default function CIStatusPanel() {
               </div>
             ) : error ? (
               <div className="py-4 text-center">
-                <p className="text-xs text-red-400 font-mono mb-2">Failed to reach GitHub API</p>
-                <button
-                  onClick={fetchStatus}
+                <p className="text-xs text-slate-400 font-mono mb-1">
+                  {error === 'rate_limit'
+                    ? '⏳ GitHub API rate limit reached'
+                    : '⚠️ Could not reach GitHub API'}
+                </p>
+                {error === 'rate_limit' && (
+                  <p className="text-xs text-slate-500 font-mono mb-2">Resets every hour</p>
+                )}
+                <a
+                  href={`https://github.com/${REPO}/actions`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-xs text-blue-500 hover:underline font-mono"
                 >
-                  Retry ↻
-                </button>
+                  View on GitHub ↗
+                </a>
               </div>
             ) : (
               <ul className="divide-y divide-slate-100 dark:divide-white/5">
