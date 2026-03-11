@@ -180,16 +180,28 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
   const client = new Groq({ apiKey });
 
-  const stream = await client.chat.completions.create({
-    model: 'llama-3.3-70b-versatile',
-    max_tokens: 1024,
-    stream: true,
-    messages: [
-      { role: 'system', content: CV_CONTEXT },
-      ...history.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
-      { role: 'user', content: message },
-    ],
-  });
+  let stream;
+  try {
+    stream = await client.chat.completions.create({
+      model: 'llama-3.3-70b-versatile',
+      max_tokens: 1024,
+      stream: true,
+      messages: [
+        { role: 'system', content: CV_CONTEXT },
+        ...history.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
+        { role: 'user', content: message },
+      ],
+    });
+  } catch (err: unknown) {
+    const status = (err as { status?: number })?.status;
+    if (status === 429) {
+      return new Response(JSON.stringify({ error: 'rate_limit' }), {
+        status: 429,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+    throw err;
+  }
 
   const encoder = new TextEncoder();
   const readable = new ReadableStream({

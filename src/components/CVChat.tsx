@@ -46,6 +46,19 @@ export default function CVChat({ apiBase }: { apiBase: string }) {
         }),
       });
 
+      if (res.status === 429) {
+        setMessages((prev) => {
+          const updated = [...prev];
+          updated[updated.length - 1] = {
+            role: 'assistant',
+            content:
+              "I've reached my daily usage limit. Please try again tomorrow — the AI resets every 24 hours.",
+          };
+          return updated;
+        });
+        return;
+      }
+
       if (!res.ok) {
         throw new Error(`HTTP ${res.status}`);
       }
