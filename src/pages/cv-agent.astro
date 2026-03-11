@@ -2,9 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import CVChat from '../components/CVChat.tsx';
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const origin = Astro.url.origin;
-const apiBase = origin + base;
+const apiBase = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <Layout
