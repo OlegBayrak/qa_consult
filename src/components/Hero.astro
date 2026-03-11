@@ -80,30 +80,35 @@
       </div>
 
       <!-- Quick stats -->
-      <div class="flex flex-wrap gap-8 mt-16 animate-fade-up" style="animation-delay: 0.6s;">
+      <dl class="flex flex-wrap gap-8 mt-16 animate-fade-up" style="animation-delay: 0.6s;">
         <div>
-          <span class="text-3xl font-bold text-slate-900 dark:text-white">12+</span>
-          <p class="text-sm text-slate-500 dark:text-gray-500 mt-1">Years Experience</p>
+          <dd class="text-3xl font-bold text-slate-900 dark:text-white">12+</dd>
+          <dt class="text-sm text-slate-500 dark:text-gray-500 mt-1">Years Experience</dt>
         </div>
         <div>
-          <span class="text-3xl font-bold text-slate-900 dark:text-white">7+</span>
-          <p class="text-sm text-slate-500 dark:text-gray-500 mt-1">Companies</p>
+          <dd class="text-3xl font-bold text-slate-900 dark:text-white">7+</dd>
+          <dt class="text-sm text-slate-500 dark:text-gray-500 mt-1">Companies</dt>
         </div>
         <div>
-          <span class="text-3xl font-bold text-slate-900 dark:text-white">25+</span>
-          <p class="text-sm text-slate-500 dark:text-gray-500 mt-1">Countries Explored</p>
+          <dd class="text-3xl font-bold text-slate-900 dark:text-white">25+</dd>
+          <dt class="text-sm text-slate-500 dark:text-gray-500 mt-1">Countries Explored</dt>
         </div>
-      </div>
+      </dl>
     </div>
   </div>
 
   <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+  <a
+    href="#about"
+    class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce"
+    aria-label="Scroll to About section"
+  >
     <svg
       class="w-6 h-6 text-slate-400 dark:text-gray-500"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
+      aria-hidden="true"
     >
       <path
         stroke-linecap="round"
@@ -111,5 +116,5 @@
         stroke-width="2"
         d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
     </svg>
-  </div>
+  </a>
 </section>
