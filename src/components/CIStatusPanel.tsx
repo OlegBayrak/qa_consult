@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 
 const REPO = 'OlegBayrak/qa_consult';
 const GH_API = `https://api.github.com/repos/${REPO}`;
-const GH_RUNS = `${GH_API}/actions/runs?per_page=30`;
+const GH_RUNS = `${GH_API}/actions/runs?per_page=50`;
 
 type RunStatus = 'success' | 'failure' | 'in_progress' | 'queued' | 'skipped' | 'unknown';
 
@@ -17,8 +17,11 @@ interface CheckRow {
 
 const WORKFLOWS: Record<string, { label: string; icon: string; mainOnly?: boolean }> = {
   CI: { label: 'Lint → Build → E2E', icon: '⚙️', mainOnly: true },
+  'Security Audit': { label: 'Security Audit', icon: '🔒', mainOnly: true },
+  CodeQL: { label: 'CodeQL Analysis', icon: '🛡️', mainOnly: true },
   'Lighthouse CI': { label: 'Lighthouse Scores', icon: '🔦' },
   'Deploy Preview': { label: 'Deploy Preview', icon: '🚀' },
+  'Dependency Review': { label: 'Dependency Review', icon: '📦' },
 };
 
 function overallStatus(rows: CheckRow[]): RunStatus {
