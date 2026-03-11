@@ -18,7 +18,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: process.env.CI ? 'npm run preview' : 'npm run dev',
+    command: process.env.CI ? 'npx wrangler dev --port 4321' : 'npm run dev',
     url: 'http://localhost:4321/qa_consult',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
